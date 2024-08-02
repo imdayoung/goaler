@@ -13,4 +13,5 @@ import HistoryComponent from '../components/home/HistoryComponent.vue'
     <TheWelcome />
   </main> -->
   <GoalComponent/>
+  <ExplainComponent/>
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-const goal = ref("이번 달 60만원보다 적게 쓰기");
+const goal = ref("10월까지 500만원 모으기");
 
 if (goal.value == null) {
   goal.value = "아직 목표가 없어요!";
