@@ -27,9 +27,7 @@ function handleSubmit() {
   if (email.value) {
     console.log(`Sending invitation to ${email.value}`);
 
-
     // 유저-가계부 매핑 테이블에 유저 추가 로직 필요
-
 
     email.value = ''; // 입력 필드 비우기
     buttonText.value = '완료'; // 버튼 텍스트를 '성공!'으로 변경
@@ -74,6 +72,11 @@ input {
   border: 1px solid #ddd;
   border-radius: 4px;
   min-width: 0; /* 입력 필드가 컨테이너의 너비에 맞추어 줄어들 수 있도록 설정 */
+  font-size: 12px; /* 입력 필드의 글씨 크기 조정 */
+}
+
+input::placeholder {
+  font-size: 13px; /* placeholder 글씨 크기 조정 */
 }
 
 button {
@@ -85,6 +88,7 @@ button {
   cursor: pointer;
   width: auto; /* 버튼 너비를 자동으로 설정 */
   transition: background-color 0.3s, transform 0.3s; /* 버튼 애니메이션 */
+  font-size: 13px; /* 버튼의 글씨 크기 조정 */
 }
 
 button:active {
