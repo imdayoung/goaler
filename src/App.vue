@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HomeView from './views/HomeView.vue';
+import SideBarComponent from './components/sidebar/SideBarComponent.vue';
 </script>
 
 <template>

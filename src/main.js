@@ -15,6 +15,9 @@ import router from './router'
 
 library.add(fas)
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+
 const app = createApp(App)
 
 app.use(createPinia())
