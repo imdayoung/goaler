@@ -31,6 +31,10 @@ const hideSidebar = () => {
     <button class="btn btn-primary" @mouseenter="showSidebar">Hover to Show Sidebar</button>
     <SideBarComponent v-model:isVisible="isSidebarVisible"/>
   </div>
+  <div class="charts-container">
+    <PieChartComponent/>
+    <GraphChartComponent/>
+  </div>
 </template>
 
 <style scoped>
@@ -44,6 +48,12 @@ div{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.charts-container {
+  display: flex; /* Flexbox 사용하여 자식 요소를 나란히 배치 */
+  gap: 20px; /* 카드 사이의 간격 설정 */
+  padding: 20px; /* 전체 컨테이너의 내부 여백 설정 */
+  justify-content: space-between; /* 자식 요소들 사이의 공간을 균등하게 배분 */
 }
 /* .sidebar.show {
   transform: translateX(0);
