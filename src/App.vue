@@ -22,6 +22,16 @@ import SideBarComponent from './components/sidebar/SideBarComponent.vue';
 </template>
 
 <style scoped>
+@font-face {
+  font-family: 'notoSans';
+  src: url('/public/fonts/NotoSans.ttf');
+}
+
+@font-face {
+  font-family: 'notoSansKr';
+  src: url('/public/fonts/NotoSansKR.ttf');
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;

@@ -1,54 +1,60 @@
+<script setup>
+import { ref } from 'vue';
+
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+    default: false
+  }
+});
+
+const accountBooks = ref([
+  {
+    id: "aasdfasdf",
+    title: "KB마이핏통장"
+  },
+  {
+    id: "wersdfsdf",
+    title: "KB모임통장 - 여행💛"
+  }
+])
+</script>
+
 <template>
-  <div class="offcanvas offcanvas-start" tabindex="-1" ref="offcanvas">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title">Sidebar</h5>
-      <button type="button" class="btn-close" @click="closeSidebar"></button>
+  <div :class="['mt-3 sidebar', { show: props.isVisible }]">
+    <div class="mx-2 my-2 fw-bold">
+      내 통장
     </div>
-    <div class="offcanvas-body">
-      <!-- 사이드바의 내용 -->
-      <p>Sidebar content goes here.</p>
-    </div>
+    <button class="btn btn-account-book" type="button" v-for="accountBook in accountBooks">
+      💰 {{ accountBook.title }}
+    </button>
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, watch } from 'vue';
-import { Offcanvas } from 'bootstrap';
-
-const offcanvas = ref(null);
-
-const closeSidebar = () => {
-  if (offcanvas.value) {
-    const bsOffcanvas = Offcanvas.getOrCreateInstance(offcanvas.value);
-    bsOffcanvas.hide();
-    emit('close-sidebar');
-  }
-};
-
-// Watch for changes in `offcanvas` ref to initialize Offcanvas
-watch(offcanvas, (newEl) => {
-  if (newEl) {
-    const bsOffcanvas = new Offcanvas(newEl);
-    bsOffcanvas.show();
-  }
-});
-</script>
-
-<style>
-/* Add any additional styles if needed */
-</style>
-
-
-<style>
-.offcanvas {
-  transition: transform 0.3s ease-in-out;
-}
-
-.offcanvas-start {
+<style scoped>
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 80%;
+  background-color: #E8E1D7;
+  border-top-right-radius: 5%;
+  border-bottom-right-radius: 5%;
   transform: translateX(-100%);
+  transition: transform 0.3s ease;
 }
-
-.offcanvas.show {
+.sidebar.show {
   transform: translateX(0);
+}
+.btn-account-book {
+  width: 100%;
+  text-align: left;
+  font-size: small;
+  /* background-color: saddlebrown; */
+}
+.btn-account-book:hover {
+  background-color: #60584C;
+  color: white;
 }
 </style>

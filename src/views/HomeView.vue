@@ -9,29 +9,37 @@ import HistoryComponent from '../components/home/HistoryComponent.vue'
 import SideBarComponent from '../components/sidebar/SideBarComponent.vue';
 import { ref } from 'vue';
 
-const showSidebar = ref(false);
+const isSidebarVisible = ref(false);
+
+const showSidebar = () => {
+  isSidebarVisible.value = true;
+}
 
 const hideSidebar = () => {
-  setTimeout(() => {
-    if (!document.querySelector('.offcanvas:hover')) {
-      showSidebar.value = false;
-    }
-  }, 300); // Delay to allow hover effect on sidebar
-};
+  isSidebarVisible.value = false;
+}
 </script>
 
 <template>
-  <div>
-    <!-- 버튼에 hover 시 사이드바 표시 -->
-    <button
-      class="btn btn-primary"
-      @mouseenter="showSidebar = true"
-      @mouseleave="hideSidebar"
-    >
-      Hover me
-    </button>
-
-    <!-- 사이드바 컴포넌트 -->
-    <SideBarComponent v-if="showSidebar" @close-sidebar="showSidebar = false" />
+  <div class="home" @click="hideSidebar">
+    <button class="btn btn-primary" @mouseenter="showSidebar">Hover to Show Sidebar</button>
+    <SideBarComponent v-model:isVisible="isSidebarVisible"/>
   </div>
 </template>
+
+<style scoped>
+div{
+  font-family: 'notoSansKr', 'notoSans';
+  color: #60584C;
+}
+.home {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .sidebar.show {
+  transform: translateX(0);
+} */
+</style>
