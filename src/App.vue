@@ -1,7 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HomeView from './views/HomeView.vue';
-import SideBarComponent from './components/sidebar/SideBarComponent.vue';
+
+import HelloWorld from './components/HelloWorld.vue'
+import HomeView from './views/HomeView.vue'
+import SideBarComponent from './components/sidebar/SideBarComponent.vue'
 </script>
 
 <template>
@@ -23,13 +25,18 @@ import SideBarComponent from './components/sidebar/SideBarComponent.vue';
 
 <style scoped>
 @font-face {
-  font-family: 'notoSans';
-  src: url('/public/fonts/NotoSans.ttf');
+  font-family: 'jalnan';
+  src: url('/public/fonts/JALNAN.ttf');
 }
 
 @font-face {
   font-family: 'notoSansKr';
   src: url('/public/fonts/NotoSansKR.ttf');
+}
+
+@font-face {
+  font-family: 'notoSans';
+  src: url('/public/fonts/NotoSans.ttf');
 }
 
 header {

@@ -1,6 +1,6 @@
 <script setup>
 import TheWelcome from '../components/TheWelcome.vue'
-import GoalComponet from '../components/home/GoalComponent.vue'
+import GoalComponent from '../components/home/GoalComponent.vue'
 import ExplainComponent from '../components/home/ExplainComponent.vue'
 import ChatBotComponent from '../components/home/ChatBotComponent.vue'
 import PieChartComponent from '../components/home/PieChartComponent.vue'
@@ -22,6 +22,8 @@ const hideSidebar = () => {
 </script>
 
 <template>
+  <GoalComponent/>
+  <ExplainComponent/>
   <HistoryMainComponent/>
   <div class="home" @click="hideSidebar">
     <button class="btn btn-primary" @mouseenter="showSidebar">Hover to Show Sidebar</button>
