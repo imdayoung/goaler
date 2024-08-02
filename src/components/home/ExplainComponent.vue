@@ -15,7 +15,7 @@ const splittedText = text.value.split(/[!?.]/);
     </div>
   </div>
   <div class="img-container px-3">
-    <img src="/src/assets/bibi.png" class="mx-3"/>
+    <img src="/src/assets/bibi3.png" class="mx-3"/>
   </div>
 </div>
 </template>
