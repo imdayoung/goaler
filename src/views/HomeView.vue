@@ -1,12 +1,12 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
-import GoalComponent from '../components/home/GoalComponent.vue'
-import ExplainComponent from '../components/home/ExplainComponent.vue'
-import ChatBotComponent from '../components/home/ChatBotComponent.vue'
-import PieChartComponent from '../components/home/PieChartComponent.vue'
-import GraphChartComponent from '../components/home/GraphChartComponent.vue'
-import SideBarComponent from '../components/sidebar/SideBarComponent.vue';
-import HistoryMainComponent from '../components/home/history/HistoryMainComponent.vue'
+import GoalComponent from '@/components/home/GoalComponent.vue'
+import ExplainComponent from '@/components/home/ExplainComponent.vue'
+import ChatBotComponent from '@/components/home/ChatBotComponent.vue'
+import PieChartComponent from '@/components/home/PieChartComponent.vue'
+import GraphChartComponent from '@/components/home/GraphChartComponent.vue'
+import SideBarComponent from '@/components/sidebar/SideBarComponent.vue';
+import HistoryMainComponent from '@/components/home/history/HistoryMainComponent.vue'
+import TopbarComponent from '@/components/topbar/TopbarComponent.vue'
 
 import { ref } from 'vue';
 
@@ -22,6 +22,8 @@ const hideSidebar = () => {
 </script>
 
 <template>
+  <TopbarComponent/>
+  <ChatBotComponent/>
   <GoalComponent/>
   <ExplainComponent/>
   <HistoryMainComponent/>
