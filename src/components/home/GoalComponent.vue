@@ -10,7 +10,7 @@ if (goal.value == null) {
 <template>
   <div class="card mx-3 my-3 py-3">
     <div class="container">
-      <img src="/src/assets/bibi32.png"/>
+      <img src="/src/assets/bibi3.png"/>
       <div class="goal fs-3">
         {{ goal }}
       </div>
