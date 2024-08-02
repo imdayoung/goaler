@@ -77,6 +77,10 @@ function getCurrentTime() {
   align-items: center;
 }
 
+.chat-header h3 {
+  font-size: 1.05em;
+}
+
 .close-button {
   background: none;
   border: none;
@@ -89,7 +93,7 @@ function getCurrentTime() {
   padding: 10px;
   flex: 1;
   overflow-y: auto;
-  max-height: calc(100% - 80px);
+  height: calc(100% - 80px);
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -176,6 +180,10 @@ function getCurrentTime() {
   margin-right: 10px;
 }
 
+.chat-footer input::placeholder {
+  font-size: 0.75em; /* placeholder 글씨 크기 조정 */
+}
+
 .chat-footer button {
   padding: 12px;
   background: rgb(255, 204, 0);
@@ -184,6 +192,7 @@ function getCurrentTime() {
   cursor: pointer;
   transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.9em;
 }
 
 .chat-footer button:hover {
