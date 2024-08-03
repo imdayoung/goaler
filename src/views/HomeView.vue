@@ -8,8 +8,8 @@ import HomeComponent from '@/components/HomeComponent.vue'
   <HomeComponent/>
 </template>
 
-<style scoped>
-div{
+<style>
+div {
   font-family: 'notoSansKr', 'notoSans';
   color: #60584C;
 }

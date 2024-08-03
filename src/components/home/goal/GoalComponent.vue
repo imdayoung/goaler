@@ -22,10 +22,6 @@ if (goal.value == null) {
 </template>
 
 <style scoped>
-div {
-  font-family: 'notoSansKr', 'notoSans';
-  color: #60584C;
-}
 .card {
   display: flex;
   justify-content: center;

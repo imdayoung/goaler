@@ -1,6 +1,5 @@
 <script setup>
 import HomeView from './views/HomeView.vue'
-import SideBarComponent from './components/sidebar/SideBarComponent.vue'
 </script>
 
 <template>
