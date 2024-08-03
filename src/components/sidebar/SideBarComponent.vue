@@ -39,14 +39,14 @@ const accountBooks = ref([
   width: 200px;
   height: 70%;
   background-color: #F7F7F5;
-  box-shadow: 4px 7px 12px -1px gray;
+  box-shadow: 0px 0px 12px 5px #a1a1a1;
   border-top-right-radius: 5%;
   border-bottom-right-radius: 5%;
   transform: translateX(0);
   transform: translateX(-100%);
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0;
-  z-index: 1100;
+  z-index: 900;
 }
 .sidebar.show {
   left: 0;

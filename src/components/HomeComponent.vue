@@ -1,6 +1,4 @@
 <script setup>
-import TopbarComponent from '@/components/topbar/TopbarComponent.vue'
-import HomeComponent from '@/components/HomeComponent.vue'
 import GoalComponent from '@/components/home/goal/GoalComponent.vue'
 import ExplainComponent from '@/components/home/goal/ExplainComponent.vue'
 import ChatBotComponent from '@/components/home/chatbot/ChatBotComponent.vue'
@@ -10,13 +8,22 @@ import HistoryMainComponent from '@/components/home/history/HistoryMainComponent
 </script>
 
 <template>
-  <TopbarComponent/>
-  <HomeComponent/>
+  <ChatBotComponent/>
+  <GoalComponent/>
+  <ExplainComponent/>
+  <HistoryMainComponent/>
+  <div class="charts-container">
+    <PieChartComponent/>
+    <GraphChartComponent/>
+  </div>
 </template>
 
 <style scoped>
-div{
-  font-family: 'notoSansKr', 'notoSans';
-  color: #60584C;
+.charts-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  justify-content: space-between;
+  
 }
 </style>
