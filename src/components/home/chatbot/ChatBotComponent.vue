@@ -40,7 +40,7 @@
 
 .tooltip {
   position: absolute;
-  left: -220px; /* 아이콘의 왼쪽에 위치하도록 조정 */
+  right: 120%; /* 아이콘의 왼쪽에 위치하도록 조정 */
   top: 50%; /* 아이콘의 중앙에 맞추기 */
   transform: translateY(-50%); /* 중앙 정렬 보정 */
   background: #333333c0;
