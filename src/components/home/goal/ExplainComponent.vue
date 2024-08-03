@@ -7,7 +7,7 @@ const splittedText = text.value.split(/[!?.]/);
 </script>
 
 <template>
-<div class="card mx-3 my-3 py-3">
+<div class="card my-3 py-3">
   <div class="speech-bubble mx-5 my-3 px-3 py-3">
     <div class="fw-bold fs-5">📢AI 금융 비서 비비가 알려드려요! </div>
     <div v-for="text in splittedText">
@@ -25,7 +25,6 @@ const splittedText = text.value.split(/[!?.]/);
   display: flex;
   flex-direction: row;
   position: relative;
-  width: 80%;
 }
 .speech-bubble {
 	position: relative;

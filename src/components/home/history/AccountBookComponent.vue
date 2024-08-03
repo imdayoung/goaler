@@ -27,7 +27,6 @@ hr {
   height: 1px;
 }
 .account-book-card {
-  width: 30%;
   background-color: #F1EEEA;
 }
 .account-book-balance {

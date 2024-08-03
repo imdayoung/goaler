@@ -1,29 +1,31 @@
 <script setup>
+import EmptyComponent from '@/components/EmptyComponent.vue'
+import ChatBotComponent from '@/components/home/chatbot/ChatBotComponent.vue'
 import GoalComponent from '@/components/home/goal/GoalComponent.vue'
 import ExplainComponent from '@/components/home/goal/ExplainComponent.vue'
-import ChatBotComponent from '@/components/home/chatbot/ChatBotComponent.vue'
-import PieChartComponent from '@/components/home/chart/PieChartComponent.vue'
-import GraphChartComponent from '@/components/home/chart/GraphChartComponent.vue'
 import HistoryMainComponent from '@/components/home/history/HistoryMainComponent.vue'
+import ChartComponent from '@/components/home/chart/ChartComponent.vue'
 </script>
 
 <template>
-  <ChatBotComponent/>
-  <GoalComponent/>
-  <ExplainComponent/>
-  <HistoryMainComponent/>
-  <div class="charts-container">
-    <PieChartComponent/>
-    <GraphChartComponent/>
+  <div class="container">
+    <ChatBotComponent/>
+    <EmptyComponent/>
+    <div class="component-container"><GoalComponent/></div>
+    <div class="component-container"><ExplainComponent/></div>
+    <div class="component-container"><HistoryMainComponent/></div>
+    <div class="component-container"><ChartComponent/></div>
+    <EmptyComponent/>
   </div>
 </template>
 
 <style scoped>
-.charts-container {
+.container {
   display: flex;
-  gap: 20px;
-  padding: 20px;
-  justify-content: space-between;
-  
+  flex-direction: column;
+  align-items: center
+}
+.component-container {
+  width: 80%;
 }
 </style>
