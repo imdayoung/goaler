@@ -1,0 +1,15 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_LOCAL_URL}
+    username: ${MYSQL_LOCAL_USERID}
+    password: ${MYSQL_LOCAL_PASSWORD}
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
