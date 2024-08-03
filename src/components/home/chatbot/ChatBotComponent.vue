@@ -2,7 +2,7 @@
     <div>
       <!-- 챗봇 아이콘과 말풍선 -->
       <div class="chatbot-icon" @click="toggleChatWindow">
-        <img src="../../assets/bibi_white.png" alt="ChatBot Icon" />
+        <img src="/src/assets/bibi_white.png" alt="ChatBot Icon" />
         <div class="tooltip">도움이 필요하시면 저를 불러주세요!</div>
       </div>
       

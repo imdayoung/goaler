@@ -1,9 +1,9 @@
 <script setup>
-import GoalComponent from '@/components/home/GoalComponent.vue'
-import ExplainComponent from '@/components/home/ExplainComponent.vue'
-import ChatBotComponent from '@/components/home/ChatBotComponent.vue'
-import PieChartComponent from '@/components/home/PieChartComponent.vue'
-import GraphChartComponent from '@/components/home/GraphChartComponent.vue'
+import GoalComponent from '@/components/home/goal/GoalComponent.vue'
+import ExplainComponent from '@/components/home/goal/ExplainComponent.vue'
+import ChatBotComponent from '@/components/home/chatbot/ChatBotComponent.vue'
+import PieChartComponent from '@/components/home/chart/PieChartComponent.vue'
+import GraphChartComponent from '@/components/home/chart/GraphChartComponent.vue'
 import SideBarComponent from '@/components/sidebar/SideBarComponent.vue';
 import HistoryMainComponent from '@/components/home/history/HistoryMainComponent.vue'
 import TopbarComponent from '@/components/topbar/TopbarComponent.vue'

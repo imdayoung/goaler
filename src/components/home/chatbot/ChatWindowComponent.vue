@@ -6,7 +6,7 @@
     </div>
     <div class="chat-body">
       <div v-for="(message, index) in messages" :key="index" :class="{'message-bot': message.from === 'bot', 'message-user': message.from === 'user', 'message': true}">
-        <img v-if="message.from === 'bot'" src="../../assets/bibi.png" alt="Bot" class="message-photo"/>
+        <img v-if="message.from === 'bot'" src="/src/assets/bibi.png" alt="Bot" class="message-photo"/>
         <div class="message-text-wrapper">
           <div class="message-text">
             {{ message.text }}
