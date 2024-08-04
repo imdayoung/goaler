@@ -2,7 +2,7 @@
     <div>
       <!-- 챗봇 아이콘과 말풍선 -->
       <div class="chatbot-icon" @click="toggleChatWindow">
-        <img src="../../assets/bibi_white.png" alt="ChatBot Icon" />
+        <img src="/src/assets/bibi_white.png" alt="ChatBot Icon" />
         <div class="tooltip">도움이 필요하시면 저를 불러주세요!</div>
       </div>
       
@@ -40,7 +40,7 @@
 
 .tooltip {
   position: absolute;
-  left: -220px; /* 아이콘의 왼쪽에 위치하도록 조정 */
+  right: 120%; /* 아이콘의 왼쪽에 위치하도록 조정 */
   top: 50%; /* 아이콘의 중앙에 맞추기 */
   transform: translateY(-50%); /* 중앙 정렬 보정 */
   background: #333333c0;
