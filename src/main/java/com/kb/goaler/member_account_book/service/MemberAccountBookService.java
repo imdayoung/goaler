@@ -1,5 +1,10 @@
 package com.kb.goaler.member_account_book.service;
 
+import com.kb.goaler.account_book.entity.AccountBookEntity;
+import com.kb.goaler.account_book.repository.AccountBookRepository;
+import com.kb.goaler.global.error.ApplicationError;
+import com.kb.goaler.global.error.ApplicationException;
+import com.kb.goaler.member.dto.MemberInfoRequest;
 import com.kb.goaler.member.dto.MemberInfoResponse;
 import com.kb.goaler.member.entity.MemberEntity;
 import com.kb.goaler.member.repository.MemberRepository;
@@ -22,6 +27,7 @@ public class MemberAccountBookService {
 
     private final MemberAccountBookRepository memberAccountBookRepository;
     private final MemberRepository memberRepository;
+    private final AccountBookRepository accountBookRepository;
 
     public List<MemberInfoResponse> getMemberInfoList(Long accountBookIdx) {
 
@@ -45,5 +51,22 @@ public class MemberAccountBookService {
             }
         }
         return memberInfoResponseList;
+    }
+
+
+    public void inviteMember(Long accountBookIdx, MemberInfoRequest request) {
+
+        AccountBookEntity accountBook = accountBookRepository.findByIdx(accountBookIdx).orElseThrow(() -> new ApplicationException(ApplicationError.ACCOUNT_BOOK_NOT_FOUND));
+        MemberEntity member = memberRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ApplicationException(ApplicationError.MEMBER_NOT_FOUND));
+
+        if (memberAccountBookRepository.findByAccountBookAndMember(accountBook, member).isPresent()) {
+            throw new ApplicationException(ApplicationError.MEMBER_ALREADY_INVITED);
+        }
+        MemberAccountBookEntity memberAccountBook = MemberAccountBookEntity.builder()
+                .accountBook(accountBook)
+                .member(member)
+                .build();
+
+        memberAccountBookRepository.save(memberAccountBook);
     }
 }
