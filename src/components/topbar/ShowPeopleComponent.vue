@@ -16,26 +16,27 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useAccountBookInfoStore } from '@/stores/accountbook';
 
-// 예시 데이터 정의 변경 필요
-const userProfiles = ref([
-  {
-    photo: 'https://via.placeholder.com/50?text=User1',
-    name: 'John Doe',
-    email: 'john.doe@example.com'
-  },
-  {
-    photo: 'https://via.placeholder.com/50?text=User2',
-    name: 'Jane Smith',
-    email: 'jane.smith@example.com'
-  },
-  {
-    photo: 'https://via.placeholder.com/50?text=User3',
-    name: 'Emily Johnson',
-    email: 'emily.johnson@example.com'
-  }
-]);
+const userProfiles = ref([]);
+
+const userAccountBookInfoStore = useAccountBookInfoStore();
+
+// todo: 현재 보고있는 가계부 번호 전달
+const fetchUserProfiles = async() => {
+  const users = await userAccountBookInfoStore.getAccountBookMembers(1);
+
+  userProfiles.value = users.map(user => ({
+    photo: user.image || 'https://via.placeholder.com/50?text=User',
+    name: user.name,
+    email: user.email
+  }));
+}
+
+onMounted(() => {
+  fetchUserProfiles();
+});
 </script>
 
 <style scoped>
