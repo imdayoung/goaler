@@ -7,32 +7,41 @@ const splittedText = text.value.split(/[!?.]/);
 </script>
 
 <template>
-<div class="card mx-3 my-3 py-3">
-  <div class="speech-bubble mx-5 my-3 px-3 py-3">
-    <div class="fw-bold fs-5">📢AI 금융 비서 비비가 알려드려요! </div>
-    <div v-for="text in splittedText">
-      {{ text }}
+<div class="card my-3 py-3">
+  <div class="analysis-title my-1">📢AI 금융 비서 비비가 알려드려요! </div>
+  <div class="analysis">
+    <div class="speech-bubble mx-5 my-3 px-3 py-3">
+      <div v-for="text in splittedText" class="text-white">
+        {{ text }}
+      </div>
     </div>
-  </div>
-  <div class="img-container px-3">
-    <img src="/src/assets/bibi3.png" class="mx-3"/>
+    <div class="img-container px-3">
+      <img src="/src/assets/bibi3.png" class="mx-3"/>
+    </div>
   </div>
 </div>
 </template>
 
 <style scoped>
-.card {
+.text-white {
+  color: white;
+}
+.analysis-title {
+  font-family: 'jalnan';
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.8rem;
+}
+.analysis {
   display: flex;
   flex-direction: row;
   position: relative;
-  width: 80%;
 }
 .speech-bubble {
 	position: relative;
 	background: #60584c;
 	border-radius: 1em;
   width: 70%;
-  color: white;
 }
 .speech-bubble:after {
 	content: '';

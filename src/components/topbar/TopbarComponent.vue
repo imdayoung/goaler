@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="topbar">
-      <button class="toggle-button" @click="toggleSidebar">
+      <button class="toggle-button" @mouseenter="showSidebar">
         ☰
       </button>
       <div class="topbar-content">
-        <div class="title">MyApp</div>
+        <div class="title">Goaler</div>
         <nav class="nav">
           <button class="button" @click="showPeopleClick">
             People
@@ -18,22 +18,27 @@
     </div>
 
     <!-- 조건부로 렌더링된 모달 컴포넌트들 -->
+    <SideBarComponent v-model:isVisible="isSidebarVisible"/>
     <InviteComponent v-if="currentModal === 'invite'" @close="closeModal" />
     <ShowPeopleComponent v-if="currentModal === 'people'" @close="closeModal" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import InviteComponent from './InvitePeopleComponent.vue'; // InviteComponent.vue 임포트
 import ShowPeopleComponent from './ShowPeopleComponent.vue';
+import SideBarComponent from '../sidebar/SideBarComponent.vue';
 
-const isSidebarOpen = ref(false);
 const currentModal = ref(null); // 현재 열려 있는 모달 상태
+const isSidebarVisible = ref(false);
 
-function toggleSidebar() {
-  isSidebarOpen.value = !isSidebarOpen.value;
-  // 사이드바 열기/닫기 로직을 여기에 추가할 수 있습니다.
+const showSidebar = () => {
+  isSidebarVisible.value = true;
+}
+
+const hideSidebar = () => {
+  isSidebarVisible.value = false;
 }
 
 function showPeopleClick() {
@@ -47,6 +52,21 @@ function invitePeopleClick() {
 function closeModal() {
   currentModal.value = null; // 모든 모달 닫기
 }
+
+const handleClickOutside = (event) => {
+  const sidebarElement = document.querySelector('.sidebar');
+  if (sidebarElement && !sidebarElement.contains(event.target) && isSidebarVisible.value) {
+    hideSidebar();
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 </script>
 
 <style scoped>

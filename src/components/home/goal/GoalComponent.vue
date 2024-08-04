@@ -8,9 +8,9 @@ if (goal.value == null) {
 </script>
 
 <template>
-  <div class="card mx-3 my-3 py-3">
+  <div class="card my-3 py-3">
     <div class="container">
-      <img src="/src/assets/bibi3.png"/>
+      <img src="/src/assets/bibi2.png"/>
       <div class="goal fs-3">
         {{ goal }}
       </div>
@@ -22,15 +22,10 @@ if (goal.value == null) {
 </template>
 
 <style scoped>
-div {
-  font-family: 'notoSansKr', 'notoSans';
-  color: #60584C;
-}
 .card {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
 }
 .container {
   display: flex;

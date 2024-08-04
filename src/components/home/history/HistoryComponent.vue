@@ -71,7 +71,5 @@ historyData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 </template>
 
 <style scoped>
-.card {
-  width: 30%;
-}
+
 </style>

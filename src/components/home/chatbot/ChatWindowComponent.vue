@@ -6,7 +6,7 @@
     </div>
     <div class="chat-body">
       <div v-for="(message, index) in messages" :key="index" :class="{'message-bot': message.from === 'bot', 'message-user': message.from === 'user', 'message': true}">
-        <img v-if="message.from === 'bot'" src="../../assets/bibi.png" alt="Bot" class="message-photo"/>
+        <img v-if="message.from === 'bot'" src="/src/assets/bibi.png" alt="Bot" class="message-photo"/>
         <div class="message-text-wrapper">
           <div class="message-text">
             {{ message.text }}
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onUpdated } from 'vue';
 
 const message = ref('');
 const messages = ref([
@@ -42,6 +42,11 @@ function sendMessage() {
   }
 }
 
+onUpdated(() => {
+  const chatBody = document.querySelector('.chat-body');
+  chatBody.scrollTop = chatBody.scrollHeight;
+});
+
 function getCurrentTime() {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, '0');
@@ -55,8 +60,8 @@ function getCurrentTime() {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 350px;
-  max-height: 500px;
+  width: 60vh;
+  height: 70vh;
   background: white;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -181,7 +186,7 @@ function getCurrentTime() {
 }
 
 .chat-footer input::placeholder {
-  font-size: 0.75em; /* placeholder 글씨 크기 조정 */
+  font-size: 0.8em; /* placeholder 글씨 크기 조정 */
 }
 
 .chat-footer button {

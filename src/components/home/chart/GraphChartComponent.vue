@@ -1,5 +1,5 @@
 <template>
-<div class="card mx-3 py-3 mb-3 report-container">
+<div class="card">
     <div class="header">
     <i class="fa-solid fa-chart-line"></i>
     <h5>이번 달 수입/지출 분석 그래프</h5>
