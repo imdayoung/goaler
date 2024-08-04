@@ -19,6 +19,16 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useAccountBookInfoStore } from '@/stores/accountbook';
+
+const userAccountBookInfoStore = useAccountBookInfoStore();
+
+// todo: 예외처리
+const inviteMember = async() => {
+  await userAccountBookInfoStore.addAccountBookMember(1, email.value);
+}
+
+const emit = defineEmits(['close']);
 
 const email = ref('');
 const buttonText = ref('초대'); // 버튼의 기본 텍스트
@@ -27,13 +37,13 @@ function handleSubmit() {
   if (email.value) {
     console.log(`Sending invitation to ${email.value}`);
 
-    // 유저-가계부 매핑 테이블에 유저 추가 로직 필요
+    inviteMember(1, email.value);
 
     email.value = ''; // 입력 필드 비우기
     buttonText.value = '완료'; // 버튼 텍스트를 '성공!'으로 변경
     setTimeout(() => {
       buttonText.value = '초대'; // 일정 시간이 지나면 버튼 텍스트를 원래대로 복원
-      $emit('close'); // 말풍선 닫기
+      emit('close'); // 말풍선 닫기
     }, 2000); // 2초 후에 버튼 텍스트를 원래대로 복원
   }
 }

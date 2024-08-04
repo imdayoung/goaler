@@ -6,12 +6,22 @@ export const useAccountBookInfoStore = defineStore('accountBook', {
       
     }),
     actions: {
-      async getAccountBookMembers(id) {
+      async getAccountBookMembers(accountBookId) {
         try {
-          const res = await apiInstance.get(`/account-books/${id}/users`);
+          const res = await apiInstance.get(`/account-books/${accountBookId}/users`);
           return res.data.data;
         } catch (err) {
           console.error(err);
+        }
+      },
+      async addAccountBookMember(accountBookId, email) {
+        try {
+          const res = await apiInstance.post(`/account-books/${accountBookId}/users`, {
+            email: email
+          });
+          console.log(res.data);
+        } catch (error) {
+          console.error(error);
         }
       }
     }
