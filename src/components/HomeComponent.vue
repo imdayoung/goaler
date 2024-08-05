@@ -5,6 +5,13 @@ import GoalComponent from '@/components/home/goal/GoalComponent.vue'
 import AnalysisComponent from '@/components/home/goal/AnalysisComponent.vue'
 import HistoryMainComponent from '@/components/home/history/HistoryMainComponent.vue'
 import ChartComponent from '@/components/home/chart/ChartComponent.vue'
+
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+    default: false
+  }
+});
 </script>
 
 <template>

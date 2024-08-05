@@ -3,7 +3,13 @@ import apiInstance from './axios-instance';
 
 export const useAccountBookInfoStore = defineStore('accountBook', {
     state: () => ({
-      
+      curAccountBook: {
+        id: 0,
+        title: "",
+        accountNumber: "",
+        balance: 0,
+        goal: ""
+      }
     }),
     actions: {
       async getAccountBookMembers(accountBookId) {
@@ -20,8 +26,21 @@ export const useAccountBookInfoStore = defineStore('accountBook', {
             email: email
           });
           console.log(res.data);
-        } catch (error) {
-          console.error(error);
+        } catch (err) {
+          console.error(err);
+        }
+      },
+      async getAccountBookInfo(accountBookId) {
+        try {
+          const res = await apiInstance.get(`/account-books/${accountBookId}`);
+          
+          this.curAccountBook.id = res.data.data.id;
+          this.curAccountBook.title = res.data.data.title;
+          this.curAccountBook.accountNumber = res.data.data.accountNumber;
+          this.curAccountBook.balance = res.data.data.balance;
+          this.curAccountBook.goal = res.data.data.goal;
+        } catch (err) {
+          console.error(err);
         }
       }
     }

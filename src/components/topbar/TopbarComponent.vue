@@ -5,7 +5,7 @@
         ☰
       </button>
       <div class="topbar-content">
-        <div class="title">Goaler</div>
+        <div class="title">{{ curAccountBookTitle }}</div>
         <nav class="nav">
           <button class="button" @click="showPeopleClick">
             People
@@ -25,10 +25,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import InviteComponent from './InvitePeopleComponent.vue'; // InviteComponent.vue 임포트
 import ShowPeopleComponent from './ShowPeopleComponent.vue';
 import SideBarComponent from '../sidebar/SideBarComponent.vue';
+import { useAccountBookInfoStore } from '@/stores/accountbook';
+
+const accountBookStore = useAccountBookInfoStore();
+
+const curAccountBookTitle = computed(() => accountBookStore.curAccountBook?.title || '');
 
 const currentModal = ref(null); // 현재 열려 있는 모달 상태
 const isSidebarVisible = ref(false);

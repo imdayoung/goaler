@@ -1,10 +1,11 @@
 <script setup>
-import { ref } from 'vue';
-const goal = ref("10월까지 500만원 모으기");
+import { computed } from 'vue';
 
-if (goal.value == null) {
-  goal.value = "아직 목표가 없어요!";
-}
+import { useAccountBookInfoStore } from '@/stores/accountbook';
+
+const accountBookStore = useAccountBookInfoStore();
+
+const curAccountBookGoal = computed(() => accountBookStore.curAccountBook?.goal || '');
 </script>
 
 <template>
@@ -12,7 +13,7 @@ if (goal.value == null) {
     <div class="container">
       <img src="/src/assets/bibi2.png"/>
       <div class="goal fs-3">
-        {{ goal }}
+        {{ curAccountBookGoal }}
       </div>
     </div>
     <button class="btn py-0">
