@@ -17,4 +17,6 @@ public interface MemberAccountBookRepository extends JpaRepository<MemberAccount
     List<MemberAccountBookEntity> findAllByAccountBookIdx(Long accountBookIdx);
 
     Optional<MemberAccountBookEntity> findByAccountBookAndMember(AccountBookEntity accountBook, MemberEntity member);
+
+    List<MemberAccountBookEntity> findAllByMember(MemberEntity member);
 }
