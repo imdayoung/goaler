@@ -6,6 +6,7 @@ export const useAccountBookInfoStore = defineStore('accountBook', {
       curAccountBook: {
         id: 0,
         title: "",
+        accountName: "",
         accountNumber: "",
         balance: 0,
         goal: ""
@@ -36,6 +37,7 @@ export const useAccountBookInfoStore = defineStore('accountBook', {
           
           this.curAccountBook.id = res.data.data.id;
           this.curAccountBook.title = res.data.data.title;
+          this.curAccountBook.accountName = res.data.data.accountName;
           this.curAccountBook.accountNumber = res.data.data.accountNumber;
           this.curAccountBook.balance = res.data.data.balance;
           this.curAccountBook.goal = res.data.data.goal;

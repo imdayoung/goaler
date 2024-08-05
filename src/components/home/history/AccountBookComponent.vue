@@ -1,17 +1,36 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { useAccountBookInfoStore } from '@/stores/accountbook';
 
+const accountBookInfoStore = useAccountBookInfoStore();
+const accountBookName = ref("");
+const accountBookTitle = ref("");
+const accountBookNumber = ref("");
+const accountBookBalance = ref("");
+
+const fetchCurAccountBook = async() => {
+  await accountBookInfoStore.getAccountBookInfo(1);
+  accountBookName.value = accountBookInfoStore.curAccountBook.accountName;
+  accountBookTitle.value = accountBookInfoStore.curAccountBook.title;
+  accountBookNumber.value = accountBookInfoStore.curAccountBook.accountNumber;
+  accountBookBalance.value = accountBookInfoStore.curAccountBook.balance;
+}
+
+onMounted(() => {
+  fetchCurAccountBook();
+})
 </script>
 
 <template>
 <div class="card account-book-card my-3 mx-3">
   <div class="account-book-title fs-5 mx-4 mt-3">
-    KB모임통장
+    {{ accountBookName }} - {{ accountBookTitle }}
   </div>
   <div class="account-book-number fs-5 mx-4">
-    880602-01-130351
-  </div>      
+    {{ accountBookNumber }}
+  </div>
   <div class="account-book-balance fs-4 mx-4">
-    <span class="fw-bold">316,000</span>
+    <span class="fw-bold">{{ accountBookBalance }}</span>
     <span class="fs-5">원</span>
   </div>
   <hr class="mx-4 my-3">
