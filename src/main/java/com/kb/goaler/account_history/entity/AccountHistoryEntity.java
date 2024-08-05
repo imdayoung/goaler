@@ -1,5 +1,6 @@
 package com.kb.goaler.account_history.entity;
 
+import com.kb.goaler.account_book.entity.AccountBookEntity;
 import com.kb.goaler.account_history.constant.Type;
 import com.kb.goaler.category.entity.CategoryEntity;
 import com.kb.goaler.member_account_book.entity.MemberAccountBookEntity;
@@ -35,6 +36,6 @@ public class AccountHistoryEntity {
     private CategoryEntity category;
 
     @ManyToOne
-    @JoinColumn(name = "member_account_book_idx")
-    private MemberAccountBookEntity memberAccountBook;
+    @JoinColumn(name = "account_book_idx")
+    private AccountBookEntity accountBook;
 }
