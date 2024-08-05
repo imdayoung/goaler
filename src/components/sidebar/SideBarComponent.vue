@@ -1,5 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+
+import { useMemberStore } from '@/stores/member';
+
+const accountBooks = ref([]);
+
+const memberStore = useMemberStore();
 
 const props = defineProps({
   isVisible: {
@@ -8,16 +14,19 @@ const props = defineProps({
   }
 });
 
-const accountBooks = ref([
-  {
-    id: "1",
-    title: "KB마이핏통장"
-  },
-  {
-    id: "2",
-    title: "KB모임통장 - 여행💛"
-  }
-]);
+// todo: 로그인된 사용자 인덱스 전달
+const fetchUserAccountBooks = async() => {
+  const data = await memberStore.getAccountBooks(1);
+
+  accountBooks.value = data.map(item => ({
+    id: item.idx,
+    title: item.account_name + " - " + item.title
+  }));
+}
+
+onMounted(() => {
+  fetchUserAccountBooks();
+});
 </script>
 
 <template>
