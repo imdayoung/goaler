@@ -36,6 +36,6 @@ public class AccountHistoryEntity {
     private CategoryEntity category;
 
     @ManyToOne
-    @JoinColumn(name = "account_book_idx")
-    private AccountBookEntity accountBook;
+    @JoinColumn(name = "member_account_book_idx")
+    private MemberAccountBookEntity memberAccountBook;
 }
