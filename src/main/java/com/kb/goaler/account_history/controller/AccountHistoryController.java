@@ -19,7 +19,7 @@ public class AccountHistoryController {
 
     @GetMapping("/{accountBookIdx}/history")
     public ResponseEntity<ApiResponse<List<AccountBookHistoryResponse>>> getAllHistories(@PathVariable Long accountBookIdx) {
-        List<AccountBookHistoryResponse> response = accountHistoryService.getAccountBookHistoryList();
+        List<AccountBookHistoryResponse> response = accountHistoryService.getAccountBookHistoryList(accountBookIdx);
         return ResponseEntity.ok().body(ApiResponse.success(response));
     }
 }
