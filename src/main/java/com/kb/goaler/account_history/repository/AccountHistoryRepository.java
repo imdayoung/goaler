@@ -24,4 +24,7 @@ public interface AccountHistoryRepository extends JpaRepository<AccountHistoryEn
                                                            @Param("endOfMonth") LocalDateTime endOfMonth,
                                                            @Param("accountBookIdx") Long accountBookIdx);
 
+    @Query("SELECT ah FROM AccountHistoryEntity ah JOIN ah.memberAccountBook mab JOIN mab.accountBook ab " +
+            "WHERE ab.idx = :accountBookIdx")
+    List<AccountHistoryEntity> findAllByAccountBookIdx(@Param("accountBookIdx") Long accountBookIdx);
 }

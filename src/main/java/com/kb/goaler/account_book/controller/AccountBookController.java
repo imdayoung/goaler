@@ -22,5 +22,4 @@ public class AccountBookController {
         AccountBookInfoResponse response = accountBookService.getAccountBookInfo(accountBookIdx);
         return ResponseEntity.ok().body(ApiResponse.success(response));
     }
-
 }

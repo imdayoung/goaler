@@ -1,6 +1,7 @@
 package com.kb.goaler.account_history.service;
 
 import com.kb.goaler.account_history.constant.Type;
+import com.kb.goaler.account_history.dto.AccountBookHistoryResponse;
 import com.kb.goaler.account_history.dto.AccountHistoryChartResponse;
 import com.kb.goaler.account_history.entity.AccountHistoryEntity;
 import com.kb.goaler.account_history.repository.AccountHistoryRepository;
@@ -55,5 +56,26 @@ public class AccountHistoryService {
         }
 
         return responses;
+    }
+
+    public List<AccountBookHistoryResponse> getAccountBookHistoryList(Long accountBookIdx) {
+        List<AccountBookHistoryResponse> list = new ArrayList<>();
+
+        List<AccountHistoryEntity> accountHistoryEntityList = accountHistoryRepository.findAllByAccountBookIdx(accountBookIdx);
+
+        for (AccountHistoryEntity accountHistoryEntity : accountHistoryEntityList) {
+            AccountBookHistoryResponse history = AccountBookHistoryResponse.builder()
+                    .idx(accountHistoryEntity.getIdx())
+                    .title(accountHistoryEntity.getTitle())
+                    .amount(accountHistoryEntity.getAmount())
+                    .type(accountHistoryEntity.getType())
+                    .category_name(accountHistoryEntity.getCategory().getName())
+                    .created_at(accountHistoryEntity.getCreatedAt().toString())
+                    .build();
+
+            list.add(history);
+        }
+
+        return list;
     }
 }
