@@ -31,8 +31,8 @@ public class AccountHistoryService {
                     .title(accountHistoryEntity.getTitle())
                     .amount(accountHistoryEntity.getAmount())
                     .type(accountHistoryEntity.getType())
-                    .categoryName(accountHistoryEntity.getCategory().getName())
-                    .createdAt(accountHistoryEntity.getCreatedAt().toString())
+                    .category_name(accountHistoryEntity.getCategory().getName())
+                    .created_at(accountHistoryEntity.getCreatedAt().toString())
                     .build();
 
             list.add(history);
