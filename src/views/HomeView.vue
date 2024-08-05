@@ -12,7 +12,6 @@ const fetchAccountBookInfo = async() => {
 }
 
 onMounted(() => {
-  console.log("DD");
   fetchAccountBookInfo();
 });
 </script>

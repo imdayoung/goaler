@@ -6,7 +6,7 @@ export const useMemberStore = defineStore('member', {
       
     }),
     actions: {
-      async getAccountBooks (memberId) {
+      async getAccountBooks(memberId) {
         try {
           const res = await apiInstance.get(`members/${memberId}/account-books`);
           return res.data.data;
