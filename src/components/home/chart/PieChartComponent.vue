@@ -14,8 +14,10 @@
 import { ref, onMounted, computed } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import { useCategoryStore } from '@/stores/category';
+import { useAccountHistory } from '@/stores/accounthistory';
 
 const categoryStore = useCategoryStore();
+const accounthistoryStore = useAccountHistory();
 
 const chart = ref(null);
 const categories = ref({});
@@ -28,7 +30,7 @@ Chart.register(...registerables);
 // 현재 달 데이터 필터링 함수
 const filterCurrentMonthData = (data) => {
   return data.filter(item => {
-    const itemDate = new Date(item.date);
+    const itemDate = new Date(item.createdAt);
     return itemDate.getFullYear() === selectedYear.value && itemDate.getMonth() + 1 === selectedMonth.value;
   });
 };
@@ -36,7 +38,7 @@ const filterCurrentMonthData = (data) => {
 // 카테고리별 데이터 그룹화 함수
 const groupByCategory = (data) => {
   return data.reduce((acc, item) => {
-    acc[item.category_idx] = (acc[item.category_idx] || 0) + item.price; // 가격을 합산
+    acc[item.categoryIdx] = (acc[item.categoryIdx] || 0) + item.amount; // 가격을 합산
     return acc;
   }, {});
 };
@@ -93,21 +95,11 @@ const createChart = (labels, counts) => {
   });
 };
 
-// 임시 데이터
-const mockSpendingData = [
-  { id: 1, title: '엽떡', date: '2024-08-01', price: 12000, category_idx: 1 },
-  { id: 2, title: '택시', date: '2024-08-02', price: 6000, category_idx: 2 },
-  { id: 3, title: '전시회', date: '2024-08-03', price: 10000, category_idx: 3 },
-  { id: 4, title: '영화', date: '2024-08-04', price: 18000, category_idx: 3 },
-  { id: 5, title: '과자', date: '2024-08-05', price: 3000, category_idx: 4 },
-  { id: 6, title: '청바지', date: '2024-08-06', price: 27000, category_idx: 5 },
-  { id: 7, title: '다이소', date: '2024-08-07', price: 4000, category_idx: 6 },
-  { id: 8, title: '마라탕', date: '2024-08-08', price: 9000, category_idx: 1 },
-];
-
 const fetchData = async () => {
   await categoryStore.getCategories();
-  const comesData = mockSpendingData;
+  await accounthistoryStore.getCurrentMonthExpenses(1);
+
+  const comesData = accounthistoryStore.accountExpenses;
   const categoriesData = categoryStore.categories;
 
   // 현재 날짜의 연도와 월로 필터링
