@@ -14,10 +14,10 @@ const props = defineProps({
   }
 });
 
-const date = props.history.dateTime.split(" ")[0].split("-");
+const date = props.history.created_at.split("T")[0].split("-");
 const formattedDate = `${date[0]}.${date[1]}.${date[2]}`;
-const time = props.history.dateTime.split(" ")[1].slice(0, -3);
-const type = props.history.type === 1 ? "입금" : "출금";
+const time = props.history.created_at.split("T")[1];
+const type = props.history.type === "INCOME" ? "입금" : "출금";
 const amount = parseInt(props.history.amount, 10).toLocaleString();
 </script>
 
@@ -30,11 +30,11 @@ const amount = parseInt(props.history.amount, 10).toLocaleString();
       {{ history.title }}
     </div>
     <div class="fs-7">
-      {{ history.category }}
+      {{ history.category_name }}
     </div>
     <div class="amount fs-5 mb-2">
       {{ type }}
-      <span class="fw-bold" :class="{'text-blue': history.type == 1, 'text-red': history.type == 2}">
+      <span class="fw-bold" :class="{'text-blue': history.type == 'INCOME', 'text-red': history.type == 'EXPENSE'}">
         {{ amount }}
       </span>
       <span>원</span>
