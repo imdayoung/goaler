@@ -13,6 +13,6 @@ public class AccountBookHistoryResponse {
     private String title;
     private Long amount;
     private Type type;
-    private String categoryName;
-    private String createdAt;
+    private String category_name;
+    private String created_at;
 }
