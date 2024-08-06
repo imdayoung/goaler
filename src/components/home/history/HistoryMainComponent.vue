@@ -1,11 +1,9 @@
 <script setup>
-import AccountBookComponent from './AccountBookComponent.vue';
 import HistoryComponent from './HistoryComponent.vue';
 </script>
 
 <template>
-  <div class="card my-3">
-    <AccountBookComponent/>
+  <div class="my-3">
     <HistoryComponent/>
   </div>
 </template>

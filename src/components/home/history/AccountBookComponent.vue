@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="card account-book-card my-3 mx-3">
+<div class="card account-book-card">
   <div class="account-book-title fs-5 mx-4 mt-3">
     {{ accountBookName }}
   </div>

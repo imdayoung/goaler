@@ -3,15 +3,10 @@ import EmptyComponent from '@/components/EmptyComponent.vue'
 import ChatBotComponent from '@/components/home/chatbot/ChatBotComponent.vue'
 import GoalComponent from '@/components/home/goal/GoalComponent.vue'
 import AnalysisComponent from '@/components/home/goal/AnalysisComponent.vue'
-import HistoryMainComponent from '@/components/home/history/HistoryMainComponent.vue'
-import ChartComponent from '@/components/home/chart/ChartComponent.vue'
-
-const props = defineProps({
-  isVisible: {
-    type: Boolean,
-    default: false
-  }
-});
+import HistoryComponent from '@/components/home/history/HistoryComponent.vue'
+import AccountBookComponent from '@/components/home/history/AccountBookComponent.vue'
+import PieChartComponent from '@/components/home/chart/PieChartComponent.vue'
+import GraphChartComponent from '@/components/home/chart/GraphChartComponent.vue'
 </script>
 
 <template>
@@ -19,9 +14,20 @@ const props = defineProps({
     <ChatBotComponent/>
     <EmptyComponent/>
     <div class="component-container"><GoalComponent/></div>
-    <div class="component-container"><AnalysisComponent/></div>
-    <div class="component-container"><HistoryMainComponent/></div>
-    <div class="component-container"><ChartComponent/></div>
+    <div class="component-container"></div>
+    <div class="component-container">
+      <div class="main-component-container my-3">
+        <div class="history-component">
+          <AccountBookComponent/>
+          <HistoryComponent/>
+        </div>
+        <div class="other-components">
+          <AnalysisComponent/>
+          <PieChartComponent/>
+          <GraphChartComponent/>
+        </div>
+      </div>
+    </div>
     <EmptyComponent/>
   </div>
 </template>
@@ -30,9 +36,28 @@ const props = defineProps({
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center
+  align-items: center;
 }
 .component-container {
-  width: 80%;
+  width: 90%;
+}
+.main-component-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+.history-component {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.other-components {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 </style>

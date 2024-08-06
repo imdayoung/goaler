@@ -27,7 +27,16 @@ const startPage = computed(() => Math.max(currentPage.value - 2, 1));
 const endPage = computed(() => Math.min(startPage.value + 4, totalPages.value));
 
 const totalPagesArray = computed(() => {
-  return Array.from({ length: endPage.value - startPage.value + 1 }, (_, i) => startPage.value + i);
+  const total = totalPages.value;
+  let start = Math.max(currentPage.value - 2, 1);
+  let end = Math.min(start + 4, total);
+  
+  // Adjust start page if there are less than 5 pages
+  if (end - start < 4) {
+    start = Math.max(end - 4, 1);
+  }
+
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 });
 
 const changePage = (page) => {
@@ -43,7 +52,7 @@ onMounted(() => {
 
 <template>
   <div class="history-container">
-    <div class="card mx-3 py-2 mb-3">
+    <div class="card">
       <div v-for="(data, index) in paginatedData" :key="data.id" class="container">
         <HistoryDataComponent :history="data" :index="index" :count="historyData.length"/>
       </div>
@@ -66,7 +75,6 @@ onMounted(() => {
 
 <style scoped>
 .history-container {
-  width: 45%;
   position: relative;
 }
 .pagination {
@@ -77,10 +85,13 @@ onMounted(() => {
   flex-wrap: wrap;
 }
 .page-link {
+  display: flex;
   padding: 0.25rem 0.5rem;
   line-height: 1.2rem;
   border: 1px solid #ddd;
   color: #60584C;
+  width: 1.9rem;
+  justify-content: center;
   text-decoration: none;
   border-radius: 0.25rem;
   transition: background-color 0.2s, color 0.2s;

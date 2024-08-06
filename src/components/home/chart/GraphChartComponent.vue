@@ -125,7 +125,6 @@ onMounted(() => {
 
 <style scoped>
 .card {
-  width: 50%; /* 카드의 너비를 화면의 50%로 설정 */
   margin: 0; /* 카드의 좌우 여백을 제거 */
   background: #ffffff; /* 카드의 배경색 설정 */
   padding: 16px; /* 카드의 내부 여백 설정 */

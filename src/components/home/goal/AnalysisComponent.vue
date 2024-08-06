@@ -7,8 +7,8 @@ const splittedText = text.value.split(/[!?.]/);
 </script>
 
 <template>
-<div class="card my-3 py-3">
-  <div class="analysis-title my-1">📢AI 금융 비서 비비가 알려드려요! </div>
+<div class="card">
+  <div class="analysis-title my-3 mx-3">📢AI 금융 비서 비비가 알려드려요! </div>
   <div class="analysis">
     <div class="speech-bubble mx-5 my-3 px-3 py-3">
       <div v-for="text in splittedText" class="text-white">
