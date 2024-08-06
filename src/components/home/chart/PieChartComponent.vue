@@ -56,13 +56,13 @@ const createChart = (labels, counts) => {
       datasets: [{
         data: counts,
         backgroundColor: [
-          '#8898DA',
-          '#D992C9',
-          '#E2AEB1',
-          '#E2D1AB',
-          '#E6E7BC',
-          '#A8C46E',
-          '#B2BAC9',
+          '#FFBC00',
+          '#838687',
+          '#94C70F',
+          '#816843',
+          '#4A483F',
+          '#4E96D8',
+          '#F25D83',
         ]
       }]
     },
