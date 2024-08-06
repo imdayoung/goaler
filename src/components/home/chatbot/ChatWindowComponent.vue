@@ -24,28 +24,12 @@
 
 <script setup>
 import { ref, onUpdated } from 'vue';
+import axios from 'axios';
 
 const message = ref('');
 const messages = ref([
   { from: 'bot', text: '안녕하세요! 당신의 AI 금융 비서 비비입니다 :) 무엇을 도와드릴까요?', time: getCurrentTime() }
 ]);
-
-function sendMessage() {
-  const trimmedMessage = message.value.trim();
-  if (trimmedMessage) {
-    messages.value.push({ from: 'user', text: trimmedMessage, time: getCurrentTime() });
-    message.value = ''; // 입력 필드 비우기
-    // 챗봇 응답 로직 추가
-    setTimeout(() => {
-      messages.value.push({ from: 'bot', text: '확인했습니다!', time: getCurrentTime() });
-    }, 1000);
-  }
-}
-
-onUpdated(() => {
-  const chatBody = document.querySelector('.chat-body');
-  chatBody.scrollTop = chatBody.scrollHeight;
-});
 
 function getCurrentTime() {
   const now = new Date();
@@ -53,7 +37,31 @@ function getCurrentTime() {
   const minutes = String(now.getMinutes()).padStart(2, '0');
   return `${hours}:${minutes}`;
 }
+
+async function sendMessage() {
+  const trimmedMessage = message.value.trim();
+  if (trimmedMessage) {
+    messages.value.push({ from: 'user', text: trimmedMessage, time: getCurrentTime() });
+    message.value = ''; // 입력 필드 비우기
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/gpt/chat', trimmedMessage);
+      const botResponse = response.data;
+      messages.value.push({ from: 'bot', text: botResponse, time: getCurrentTime() });
+    } catch (error) {
+      console.error("There was an error!", error);
+      messages.value.push({ from: 'bot', text: 'An error occurred, please try again later.', time: getCurrentTime() });
+    }
+  }
+}
+
+onUpdated(() => {
+  const chatBody = document.querySelector('.chat-body');
+  chatBody.scrollTop = chatBody.scrollHeight;
+});
 </script>
+
+
 
 <style scoped>
 .chat-window {
