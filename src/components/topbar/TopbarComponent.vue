@@ -72,6 +72,23 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside);
 });
+
+let lastScrollY = window.scrollY;
+
+const handleScroll = () => {
+  if (window.scrollY > lastScrollY) {
+    isSidebarVisible.value = false;
+  }
+  lastScrollY = window.scrollY;
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <style scoped>
