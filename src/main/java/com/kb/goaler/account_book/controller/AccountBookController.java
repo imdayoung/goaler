@@ -16,10 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountBookController {
 
     private final AccountBookService accountBookService;
+
     @GetMapping("/{accountBookIdx}")
     public ResponseEntity<ApiResponse<AccountBookInfoResponse>> getAccountBook(@PathVariable Long accountBookIdx) {
 
         AccountBookInfoResponse response = accountBookService.getAccountBookInfo(accountBookIdx);
         return ResponseEntity.ok().body(ApiResponse.success(response));
+    }
+
+    @GetMapping("/{accountBookIdx}/ai")
+    public String getAccountBooksForAIAi(@PathVariable Long accountBookIdx) {
+        return accountBookService.getAccountBooksForAI(accountBookIdx);
     }
 }

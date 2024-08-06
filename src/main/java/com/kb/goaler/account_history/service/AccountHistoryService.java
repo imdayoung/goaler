@@ -2,6 +2,7 @@ package com.kb.goaler.account_history.service;
 
 import com.kb.goaler.account_history.constant.Type;
 import com.kb.goaler.account_history.dto.AccountBookHistoryResponse;
+import com.kb.goaler.account_history.dto.AccountHistoryAIResponse;
 import com.kb.goaler.account_history.dto.AccountHistoryChartResponse;
 import com.kb.goaler.account_history.entity.AccountHistoryEntity;
 import com.kb.goaler.account_history.repository.AccountHistoryRepository;
@@ -78,4 +79,49 @@ public class AccountHistoryService {
 
         return list;
     }
+
+    public String getAccountHistoriesForAI(Long accountBookIdx) {
+        List<AccountHistoryAIResponse> list = new ArrayList<>();
+
+        List<AccountHistoryEntity> accountHistoryEntityList = accountHistoryRepository.findAllByAccountBookIdx(accountBookIdx);
+
+        for (AccountHistoryEntity accountHistoryEntity : accountHistoryEntityList) {
+            AccountHistoryAIResponse history = AccountHistoryAIResponse.builder()
+                    .title(accountHistoryEntity.getTitle())
+                    .amount(accountHistoryEntity.getAmount())
+                    .type(accountHistoryEntity.getType())
+                    .category_name(accountHistoryEntity.getCategory().getName())
+                    .member_name(accountHistoryEntity.getMemberAccountBook().getMember().getName())
+                    .created_at(accountHistoryEntity.getCreatedAt().toString())
+                    .build();
+
+            list.add(history);
+        }
+
+        return formatAccountHistoriesAsTable(list);
+    }
+
+    private String formatAccountHistoriesAsTable(List<AccountHistoryAIResponse> accountHistories) {
+        StringBuilder table = new StringBuilder();
+        String lineSeparator = System.lineSeparator();
+
+        // Table header
+        table.append("+----------------+--------+----------+---------------+-------------+-------------------+").append(lineSeparator);
+        table.append("|     title      | amount |   type   | category_name | member_name |    created_at     |").append(lineSeparator);
+        table.append("+----------------+--------+----------+---------------+-------------+-------------------+").append(lineSeparator);
+
+        // Table rows
+        for (AccountHistoryAIResponse history : accountHistories) {
+            table.append(String.format("| %-14s | %-6d | %-8s | %-13s | %-11s | %-17s |",
+                    history.getTitle(), history.getAmount(),
+                    history.getType(), history.getCategory_name(),
+                    history.getMember_name(), history.getCreated_at())).append(lineSeparator);
+        }
+
+        // Table footer
+        table.append("+----------------+--------+----------+---------------+-------------+-------------------+").append(lineSeparator);
+
+        return table.toString();
+    }
+
 }

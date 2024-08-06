@@ -38,4 +38,8 @@ public class AccountHistoryController {
         return ResponseEntity.ok().body(ApiResponse.success(response));
     }
 
+    @GetMapping("/{accountBookIdx}/history/ai")
+    public String getAccountHistoriesForAI(@PathVariable Long accountBookIdx) {
+        return accountHistoryService.getAccountHistoriesForAI(accountBookIdx);
+    }
 }
