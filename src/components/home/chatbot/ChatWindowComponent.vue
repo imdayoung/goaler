@@ -95,7 +95,7 @@ function getCurrentTime() {
 }
 
 .chat-body {
-  padding: 10px;
+  padding: 10px 10px 30px 10px;
   flex: 1;
   overflow-y: auto;
   height: calc(100% - 80px);
@@ -175,6 +175,7 @@ function getCurrentTime() {
   padding: 12px;
   border-top: 1px solid #ccc;
   background: white;
+  align-items: center;
 }
 
 .chat-footer input {
@@ -183,6 +184,7 @@ function getCurrentTime() {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
+  width: 80%;
 }
 
 .chat-footer input::placeholder {
