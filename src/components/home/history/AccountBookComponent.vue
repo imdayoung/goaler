@@ -4,14 +4,12 @@ import { useAccountBookInfoStore } from '@/stores/accountbook';
 
 const accountBookInfoStore = useAccountBookInfoStore();
 const accountBookName = ref("");
-const accountBookTitle = ref("");
 const accountBookNumber = ref("");
 const accountBookBalance = ref("");
 
 const fetchCurAccountBook = async() => {
   await accountBookInfoStore.getAccountBookInfo(1);
   accountBookName.value = accountBookInfoStore.curAccountBook.accountName;
-  accountBookTitle.value = accountBookInfoStore.curAccountBook.title;
   accountBookNumber.value = accountBookInfoStore.curAccountBook.accountNumber;
   accountBookBalance.value = accountBookInfoStore.curAccountBook.balance;
 }
@@ -24,7 +22,7 @@ onMounted(() => {
 <template>
 <div class="card account-book-card my-3 mx-3">
   <div class="account-book-title fs-5 mx-4 mt-3">
-    {{ accountBookName }} - {{ accountBookTitle }}
+    {{ accountBookName }}
   </div>
   <div class="account-book-number fs-5 mx-4">
     {{ accountBookNumber }}
