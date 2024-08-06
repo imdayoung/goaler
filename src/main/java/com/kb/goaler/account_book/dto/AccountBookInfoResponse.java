@@ -9,8 +9,8 @@ import lombok.*;
 public class AccountBookInfoResponse {
 
     private Long idx;
-    private String title;
     private String accountNumber;
+    private String accountName;
     private Long balance;
     private String goal;
 }
