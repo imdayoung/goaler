@@ -27,8 +27,8 @@ public class AccountBookService {
 
         return AccountBookInfoResponse.builder()
                 .idx(accountBookEntity.getIdx())
-                .title(accountBookEntity.getTitle())
                 .accountNumber(accountBookEntity.getAccountNumber())
+                .accountName(accountBookEntity.getAccountName())
                 .balance(accountBookEntity.getBalance())
                 .goal(accountBookEntity.getGoal())
                 .build();

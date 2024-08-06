@@ -4,7 +4,7 @@ spring:
   datasource:
     driver-class-name : com.mysql.cj.jdbc.Driver
     url: ${MYSQL_LOCAL_URL}
-    username: ${MYSQL_LOCAL_USERID}
+    username: ${MYSQL_LOCAL_USERNAME}
     password: ${MYSQL_LOCAL_PASSWORD}
 
   jpa:
@@ -13,3 +13,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+gpt:
+  model: gpt-3.5-turbo
+  api:
+    key: ${GPT_KEY}
+    url: https://api.openai.com/v1/chat/completions
