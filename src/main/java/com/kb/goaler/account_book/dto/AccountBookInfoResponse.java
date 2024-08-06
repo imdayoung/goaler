@@ -11,6 +11,7 @@ public class AccountBookInfoResponse {
     private Long idx;
     private String accountNumber;
     private String accountName;
+    private String title;
     private Long balance;
     private String goal;
 }

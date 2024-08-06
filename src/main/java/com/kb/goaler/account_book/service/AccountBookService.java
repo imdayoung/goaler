@@ -29,6 +29,7 @@ public class AccountBookService {
                 .idx(accountBookEntity.getIdx())
                 .accountNumber(accountBookEntity.getAccountNumber())
                 .accountName(accountBookEntity.getAccountName())
+                .title(accountBookEntity.getTitle())
                 .balance(accountBookEntity.getBalance())
                 .goal(accountBookEntity.getGoal())
                 .build();
