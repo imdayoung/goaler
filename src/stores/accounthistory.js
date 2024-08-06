@@ -21,14 +21,13 @@ export const useAccountHistory = defineStore('accountHistory', {
             const res = await apiInstance.get(`/account-books/${accountBookIdx}/history/income`);
             this.accountIncomes = res.data.data;
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
       },
       async getAllHistories(accountBookIdx) {
         try {
           const res = await apiInstance.get(`/account-books/${accountBookIdx}/history`);
           this.accountHistories = res.data.data;
-          console.log(this.accountHistories);
         } catch (err) {
           console.error(err);
         }
