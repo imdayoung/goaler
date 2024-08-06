@@ -13,7 +13,7 @@ public class GPTRequest {
 
     private String model;
     private List<Message> messages;
-    private int temperature;
+    private double temperature;
     private int maxTokens;
     private int topP;
     private int frequencyPenalty;
@@ -21,7 +21,7 @@ public class GPTRequest {
 
     public GPTRequest(String model
             , String prompt
-            , int temperature
+            , double temperature
             , int maxTokens
             , int topP
             , int frequencyPenalty
