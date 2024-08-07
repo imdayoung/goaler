@@ -25,11 +25,5 @@ public class AccountBookEntity {
     @Column(name = "account_number")
     private String accountNumber;
 
-    @Column(name = "total_income")
-    private Long totalIncome;
-
-    @Column(name = "total_expense")
-    private Long totalExpense;
-
     private Long balance;
 }
