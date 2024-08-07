@@ -56,13 +56,13 @@ const createChart = (labels, counts) => {
       datasets: [{
         data: counts,
         backgroundColor: [
-          '#8898DA',
-          '#D992C9',
-          '#E2AEB1',
-          '#E2D1AB',
-          '#E6E7BC',
-          '#A8C46E',
-          '#B2BAC9',
+          '#FFBC00',
+          '#838687',
+          '#94C70F',
+          '#816843',
+          '#4A483F',
+          '#4E96D8',
+          '#F25D83',
         ]
       }]
     },
@@ -131,7 +131,6 @@ onMounted(() => {
 
 <style scoped>
 .card {
-  width: 50%; /* 카드의 너비를 화면의 50%로 설정 */
   margin: 0; /* 카드의 좌우 여백을 제거 */
   background: #ffffff; /* 카드의 배경색 설정 */
   padding: 16px; /* 카드의 내부 여백 설정 */

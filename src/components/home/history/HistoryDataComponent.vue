@@ -1,4 +1,6 @@
 <script setup>
+import { watchEffect, ref, watch } from 'vue';
+
 const props = defineProps({
   history: {
     type: Object,
@@ -14,17 +16,25 @@ const props = defineProps({
   }
 });
 
-const date = props.history.created_at.split("T")[0].split("-");
-const formattedDate = `${date[0]}.${date[1]}.${date[2]}`;
-const time = props.history.created_at.split("T")[1];
-const type = props.history.type === "INCOME" ? "입금" : "출금";
-const amount = parseInt(props.history.amount, 10).toLocaleString();
+const date = ref("");
+const time = ref("");
+const type = ref("");
+const amount = ref(0);
+
+watchEffect(() => {
+  const [datePart, timePart] = props.history.created_at.split("T");
+  const [year, month, day] = datePart.split("-");
+  date.value = `${year}.${month}.${day}`;
+  time.value = timePart;
+  type.value = props.history.type === "INCOME" ? "입금" : "출금";
+  amount.value = parseInt(props.history.amount, 10).toLocaleString();
+});
 </script>
 
 <template>
   <div class="container fs-6 mt-2">
     <div>
-      {{ formattedDate }} {{ time }}
+      {{ date }} {{ time }}
     </div>
     <div>
       {{ history.title }}

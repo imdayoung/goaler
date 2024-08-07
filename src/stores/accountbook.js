@@ -26,7 +26,6 @@ export const useAccountBookInfoStore = defineStore('accountBook', {
           const res = await apiInstance.post(`/account-books/${accountBookId}/users`, {
             email: email
           });
-          console.log(res.data);
         } catch (err) {
           console.error(err);
         }

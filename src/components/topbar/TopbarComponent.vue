@@ -72,6 +72,24 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside);
 });
+
+// 탑바 스크롤 동작 제어
+let lastScrollY = window.scrollY;
+
+const handleScroll = () => {
+  if (window.scrollY > lastScrollY) {
+    isSidebarVisible.value = false;
+  }
+  lastScrollY = window.scrollY;
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <style scoped>
@@ -86,6 +104,11 @@ onUnmounted(() => {
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000; /* Ensure it's above other content */
+  transition: transform 0.3s ease; /* 스크롤 시 부드럽게 이동하도록 트랜지션 추가 */
+}
+
+.topbar.hidden {
+  transform: translateY(-100%); /* 숨길 때 탑바를 위로 이동 */
 }
 
 .toggle-button {

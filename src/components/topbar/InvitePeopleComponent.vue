@@ -35,8 +35,6 @@ const buttonText = ref('초대'); // 버튼의 기본 텍스트
 
 function handleSubmit() {
   if (email.value) {
-    console.log(`Sending invitation to ${email.value}`);
-
     inviteMember(1, email.value);
 
     email.value = ''; // 입력 필드 비우기
