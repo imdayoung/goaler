@@ -3,18 +3,17 @@ import { ref} from 'vue';
 
 const text = ref("");
 text.value = "[통장이름]은 하루 평균 [금액]원을 사용했어요! 이대로라면 [년/월/일] 뒤에 목표를 달성할 수 있어요. 목표 달성일을 앞당기고 싶으시다면 [카테고리] 의 소비를 줄여보세요!";
-const splittedText = text.value.split(/[!?.]/);
 </script>
 
 <template>
 <div class="card">
-  <div class="analysis-title my-3 mx-3">📢AI 금융 비서 비비가 알려드려요! </div>
+  <div class="analysis-title mt-4 mx-3">📢AI 금융 비서 비비가 알려드려요! </div>
     <div class="speech-bubble mx-5 my-3 px-3 py-3">
-      <div v-for="text in splittedText" class="text-white">
+      <div class="text-white">
         {{ text }}
       </div>
     </div>
-    <div class="img-container mt-3">
+    <div class="img-container my-3">
       <img src="/src/assets/bibi3.png"/>
     </div>
 </div>
@@ -39,7 +38,6 @@ const splittedText = text.value.split(/[!?.]/);
 .speech-bubble {
   position: relative;
   width: 80%;
-  height: 120px;
   padding: 0px;
   background: #60584C;
   -webkit-border-radius: 20px;
