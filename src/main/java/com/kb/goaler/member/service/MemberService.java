@@ -72,7 +72,7 @@ public class MemberService {
         List<MemberAccountBookEntity> accountBookEntityList = memberAccountBookRepository.findAllByMember(member);
 
         for (MemberAccountBookEntity memberAccountBookEntity : accountBookEntityList) {
-            Optional<AccountBookEntity> accountBookEntity = accountBookRepository.findByIdx(memberAccountBookEntity.getIdx());
+            Optional<AccountBookEntity> accountBookEntity = accountBookRepository.findByIdx(memberAccountBookEntity.getAccountBook().getIdx());
             AccountBookEntity accountBook = accountBookEntity.orElseThrow(() -> new ApplicationException(ApplicationError.ACCOUNT_BOOK_NOT_FOUND));
 
             MemberAccountBookListResponse memberAccountBook = MemberAccountBookListResponse.builder()

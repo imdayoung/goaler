@@ -15,7 +15,7 @@ spring:
       ddl-auto: update
 
 gpt:
-  model: gpt-3.5-turbo
+  model: gpt-4o
   api:
     key: ${GPT_KEY}
     url: https://api.openai.com/v1/chat/completions
