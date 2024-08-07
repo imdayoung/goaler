@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="['topbar', { hidden: isHidden }]">
+    <div class="topbar">
       <button class="toggle-button" @mouseenter="showSidebar">
         ☰
       </button>
@@ -74,15 +74,11 @@ onUnmounted(() => {
 });
 
 // 탑바 스크롤 동작 제어
-const isHidden = ref(false);
 let lastScrollY = window.scrollY;
 
 const handleScroll = () => {
   if (window.scrollY > lastScrollY) {
-    isHidden.value = true;
     isSidebarVisible.value = false;
-  } else {
-    isHidden.value = false;
   }
   lastScrollY = window.scrollY;
 }
