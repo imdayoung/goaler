@@ -42,8 +42,6 @@ public class AccountBookService {
         AccountBookAIResponse response = AccountBookAIResponse.builder()
                 .title(accountBookEntity.getTitle())
                 .goal(accountBookEntity.getGoal())
-                .total_income(accountBookEntity.getTotalIncome())
-                .total_expense(accountBookEntity.getTotalExpense())
                 .balance(accountBookEntity.getBalance())
                 .build();
 
@@ -56,16 +54,16 @@ public class AccountBookService {
         String lineSeparator = System.lineSeparator();
 
         // Table header
-        table.append("+-------------------------+-------------------------+------------------------+------------------------+----------------+").append(lineSeparator);
-        table.append("|          title          |          goal           |      total_expense     |       total_income     |    balance     |").append(lineSeparator);
-        table.append("+-------------------------+-------------------------+------------------------+------------------------+----------------+").append(lineSeparator);
+        table.append("+-------------------------+-------------------------+----------------+").append(lineSeparator);
+        table.append("|          title          |          goal           |    balance     |").append(lineSeparator);
+        table.append("+-------------------------+-------------------------+----------------+").append(lineSeparator);
 
         // Table row
-        table.append(String.format("| %-23s | %-23s | %-22d | %-22d | %-14d |",
-                response.getTitle(), response.getGoal(), response.getTotal_expense(), response.getTotal_income(), response.getBalance())).append(lineSeparator);
+        table.append(String.format("| %-23s | %-23s | %-14d |",
+                response.getTitle(), response.getGoal(), response.getBalance())).append(lineSeparator);
 
         // Table footer
-        table.append("+-------------------------+-------------------------+------------------------+------------------------+----------------+").append(lineSeparator);
+        table.append("+-------------------------+-------------------------+----------------+").append(lineSeparator);
 
         return table.toString();
     }
