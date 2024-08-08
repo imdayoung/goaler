@@ -11,23 +11,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { Chart, registerables } from 'chart.js';
 import { useCategoryStore } from '@/stores/category';
 import { useAccountHistory } from '@/stores/accounthistory';
 
+// Chart.js의 모든 요소를 등록
+Chart.register(...registerables);
+
+const route = useRoute();
+const accountBookIdx = ref(route.params.accountBookIdx);
+
 const categoryStore = useCategoryStore();
 const accounthistoryStore = useAccountHistory();
-
 const chart = ref(null);
 const categories = ref({});
 const selectedYear = ref(new Date().getFullYear());
 const selectedMonth = ref(new Date().getMonth() + 1);
 
-// Chart.js의 모든 요소를 등록
-Chart.register(...registerables);
-
-// 현재 달 데이터 필터링 함수
+// 현재 월의 데이터를 필터링하는 함수
 const filterCurrentMonthData = (data) => {
   return data.filter(item => {
     const itemDate = new Date(item.createdAt);
@@ -35,10 +38,10 @@ const filterCurrentMonthData = (data) => {
   });
 };
 
-// 카테고리별 데이터 그룹화 함수
+// 카테고리별로 데이터를 그룹화하는 함수
 const groupByCategory = (data) => {
   return data.reduce((acc, item) => {
-    acc[item.categoryIdx] = (acc[item.categoryIdx] || 0) + item.amount; // 가격을 합산
+    acc[item.categoryIdx] = (acc[item.categoryIdx] || 0) + item.amount;
     return acc;
   }, {});
 };
@@ -52,7 +55,7 @@ const createChart = (labels, counts) => {
   chart.value = new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: labels.map(idx => categories.value[idx]), // 실제 라벨 데이터
+      labels: labels.map(idx => categories.value[idx]),
       datasets: [{
         data: counts,
         backgroundColor: [
@@ -79,7 +82,7 @@ const createChart = (labels, counts) => {
       },
       plugins: {
         legend: {
-          display: false // 레전드 숨기기
+          display: false
         },
         tooltip: {
           callbacks: {
@@ -95,47 +98,54 @@ const createChart = (labels, counts) => {
   });
 };
 
+// 데이터 가져오기 함수
 const fetchData = async () => {
-  await categoryStore.getCategories();
-  await accounthistoryStore.getCurrentMonthExpenses(1);
+  console.log('Fetching data for accountBookIdx:', accountBookIdx.value);  // 디버깅 로그 추가
+  if (!accountBookIdx.value) return; // accountBookIdx가 없으면 함수 종료
 
-  const comesData = accounthistoryStore.accountExpenses;
+  await categoryStore.getCategories();
+  await accounthistoryStore.getCurrentMonthExpenses(accountBookIdx.value);
+
+  const expenseData = accounthistoryStore.accountExpenses;
   const categoriesData = categoryStore.categories;
 
-  // 현재 날짜의 연도와 월로 필터링
   selectedYear.value = new Date().getFullYear();
   selectedMonth.value = new Date().getMonth() + 1;
 
-  // 데이터 필터링 및 그룹화
-  const filteredData = filterCurrentMonthData(comesData);
+  const filteredData = filterCurrentMonthData(expenseData);
   const categoryCounts = groupByCategory(filteredData);
 
-  // 차트 데이터 준비
   const labels = Object.keys(categoryCounts);
   const counts = Object.values(categoryCounts);
 
-  // category 데이터 매핑
   categories.value = categoriesData.reduce((acc, category) => {
     acc[category.idx] = category.name;
     return acc;
   }, {});
 
-  // 차트 생성
   createChart(labels, counts);
 };
 
+// 컴포넌트가 마운트될 때와 URL의 accountBookIdx가 변경될 때 데이터 가져오기
 onMounted(() => {
+  console.log('Mounted ChartComponent with accountBookIdx:', accountBookIdx.value);  // 디버깅 로그 추가
+  fetchData();
+});
+
+watch(() => route.params.accountBookIdx, (newIdx) => {
+  console.log('accountBookIdx changed to:', newIdx);  // 디버깅 로그 추가
+  accountBookIdx.value = newIdx;
   fetchData();
 });
 </script>
 
 <style scoped>
 .card {
-  margin: 0; /* 카드의 좌우 여백을 제거 */
-  background: #ffffff; /* 카드의 배경색 설정 */
-  padding: 16px; /* 카드의 내부 여백 설정 */
-  position: relative; /* 차트의 위치를 조정하기 위한 상대 위치 설정 */
-  height: 400px; /* 카드의 높이 설정 (세로 폭을 일정하게 하기 위함) */
+  margin: 0;
+  background: #ffffff;
+  padding: 16px;
+  position: relative;
+  height: 400px;
 }
 
 .header {
@@ -145,12 +155,12 @@ onMounted(() => {
 }
 
 .header i {
-  font-size: 20px; /* 아이콘 크기 설정 */
-  margin-right: 8px; /* 아이콘과 텍스트 간격 설정 */
+  font-size: 20px;
+  margin-right: 8px;
 }
 
 .header h5 {
-  margin: 0; /* 텍스트의 상하 여백 제거 */
+  margin: 0;
   font-size: 20px;
 }
 
@@ -158,6 +168,6 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* 차트의 높이를 카드에 맞추기 위한 설정 */
+  height: 100%;
 }
 </style>

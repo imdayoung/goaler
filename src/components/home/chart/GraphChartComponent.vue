@@ -13,6 +13,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { Chart, registerables } from 'chart.js';
+import { useRoute } from 'vue-router';
 import { useAccountHistory } from '@/stores/accounthistory';
 
 // Chart.js의 모든 요소를 등록
@@ -22,6 +23,9 @@ const lineChart = ref(null);
 const selectedYear = ref(new Date().getFullYear());
 const selectedMonth = ref(new Date().getMonth() + 1);
 const accountHistoryStore = useAccountHistory();
+
+const route = useRoute();
+const accountBookIdx = ref(route.params.accountBookIdx);
 
 // 현재 월의 전체 일수를 계산하는 함수
 const getDaysInMonth = (year, month) => {
@@ -46,18 +50,24 @@ const generateDailyData = (data, daysInMonth) => {
 
 // 수입 데이터를 가져오는 함수
 const fetchIncomeData = async () => {
-  await accountHistoryStore.getCurrentMonthIncomes(1);
-  const incomeData = accountHistoryStore.accountIncomes;
-  const daysInMonth = getDaysInMonth(selectedYear.value, selectedMonth.value);
-  return generateDailyData(incomeData, daysInMonth);
+  if (accountBookIdx.value) {
+    await accountHistoryStore.getCurrentMonthIncomes(accountBookIdx.value);
+    const incomeData = accountHistoryStore.accountIncomes;
+    const daysInMonth = getDaysInMonth(selectedYear.value, selectedMonth.value);
+    return generateDailyData(incomeData, daysInMonth);
+  }
+  return [];
 };
 
 // 지출 데이터를 가져오는 함수
 const fetchExpenseData = async () => {
-  await accountHistoryStore.getCurrentMonthExpenses(1);
-  const expenseData = accountHistoryStore.accountExpenses;
-  const daysInMonth = getDaysInMonth(selectedYear.value, selectedMonth.value);
-  return generateDailyData(expenseData, daysInMonth);
+  if (accountBookIdx.value) {
+    await accountHistoryStore.getCurrentMonthExpenses(accountBookIdx.value);
+    const expenseData = accountHistoryStore.accountExpenses;
+    const daysInMonth = getDaysInMonth(selectedYear.value, selectedMonth.value);
+    return generateDailyData(expenseData, daysInMonth);
+  }
+  return [];
 };
 
 // 차트 업데이트 함수
@@ -114,8 +124,13 @@ const updateChart = async () => {
   });
 };
 
-// 선택된 년도와 월이 변경될 때마다 차트 업데이트
-watch([selectedYear, selectedMonth], updateChart);
+// URL의 accountBookIdx가 변경될 때마다 차트 업데이트
+watch(() => route.params.accountBookIdx, (newIdx) => {
+  if (newIdx) {
+    accountBookIdx.value = newIdx;
+    updateChart();
+  }
+});
 
 // 초기 차트 설정
 onMounted(() => {

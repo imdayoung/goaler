@@ -1,22 +1,38 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { useAccountBookInfoStore } from '@/stores/accountbook';
 
+const route = useRoute();
 const accountBookInfoStore = useAccountBookInfoStore();
 const accountBookName = ref("");
 const accountBookNumber = ref("");
 const accountBookBalance = ref("");
 
-const fetchCurAccountBook = async() => {
-  await accountBookInfoStore.getAccountBookInfo(1);
+// 현재 `accountBookIdx`를 URL 파라미터에서 가져옵니다
+const accountBookIdx = ref(route.params.accountBookIdx);
+
+const fetchCurAccountBook = async (idx) => {
+  await accountBookInfoStore.getAccountBookInfo(idx);
   accountBookName.value = accountBookInfoStore.curAccountBook.accountName;
   accountBookNumber.value = accountBookInfoStore.curAccountBook.accountNumber;
-  accountBookBalance.value = accountBookInfoStore.curAccountBook.balance;
-}
+  accountBookBalance.value = parseInt(accountBookInfoStore.curAccountBook.balance, 10).toLocaleString();
+};
 
+// 컴포넌트가 마운트되면 데이터를 가져옵니다
 onMounted(() => {
-  fetchCurAccountBook();
-})
+  if (accountBookIdx.value) {
+    fetchCurAccountBook(accountBookIdx.value);
+  }
+});
+
+// `accountBookIdx`가 변경될 때마다 데이터를 새로 가져옵니다
+watch(() => route.params.accountBookIdx, (newIdx) => {
+  if (newIdx) {
+    accountBookIdx.value = newIdx;
+    fetchCurAccountBook(newIdx);
+  }
+});
 </script>
 
 <template>
