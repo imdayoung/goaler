@@ -1,8 +1,10 @@
 <script setup>
 import HistoryDataComponent from './HistoryDataComponent.vue';
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { useAccountHistory } from '@/stores/accounthistory';
 
+const route = useRoute();
 const accountHistoryStore = useAccountHistory();
 
 const historyData = ref([]);
@@ -10,6 +12,9 @@ const paginatedData = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(0);
 const pageSize = ref(10);
+
+// URL 파라미터에서 accountBookIdx를 추출
+const accountBookIdx = ref(route.params.accountBookIdx);
 
 const totalPagesArray = computed(() => {
   const total = totalPages.value;
@@ -23,8 +28,8 @@ const totalPagesArray = computed(() => {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 });
 
-const fetchAccountHistories = async() => {
-  await accountHistoryStore.getAllHistories(1);
+const fetchAccountHistories = async (idx) => {
+  await accountHistoryStore.getAllHistories(idx);
   historyData.value = accountHistoryStore.accountHistories;
   totalPages.value = Math.ceil(historyData.value.length / pageSize.value);
   bindData();
@@ -43,8 +48,23 @@ const changePage = (page) => {
   }
 }
 
+// 데이터 로딩 함수 호출
+const loadData = () => {
+  if (accountBookIdx.value) {
+    fetchAccountHistories(accountBookIdx.value);
+  }
+}
+
+// onMounted와 watch를 통해 accountBookIdx가 변경될 때마다 데이터 새로고침
 onMounted(() => {
-  fetchAccountHistories();
+  loadData();
+});
+
+watch(() => route.params.accountBookIdx, (newIdx) => {
+  if (newIdx) {
+    accountBookIdx.value = newIdx;
+    loadData();
+  }
 });
 </script>
 

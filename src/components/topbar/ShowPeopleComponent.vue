@@ -16,26 +16,40 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { useAccountBookInfoStore } from '@/stores/accountbook';
+
+const route = useRoute();
+const accountBookIdx = ref(route.params.accountBookIdx);
 
 const userProfiles = ref([]);
 
 const userAccountBookInfoStore = useAccountBookInfoStore();
 
-// todo: 현재 보고있는 가계부 번호 전달
-const fetchUserProfiles = async() => {
-  const users = await userAccountBookInfoStore.getAccountBookMembers(1);
-
-  userProfiles.value = users.map(user => ({
-    photo: user.image || 'https://via.placeholder.com/50?text=User',
-    name: user.name,
-    email: user.email
-  }));
+// 사용자 프로필 데이터를 가져오는 함수
+const fetchUserProfiles = async () => {
+  if (accountBookIdx.value) {
+    const users = await userAccountBookInfoStore.getAccountBookMembers(accountBookIdx.value);
+    userProfiles.value = users.map(user => ({
+      photo: user.image || 'https://via.placeholder.com/50?text=User',
+      name: user.name,
+      email: user.email
+    }));
+  }
 }
 
+// 컴포넌트가 마운트되면 데이터 로드
 onMounted(() => {
   fetchUserProfiles();
+});
+
+// URL의 accountBookIdx가 변경될 때마다 사용자 프로필을 다시 로드
+watch(() => route.params.accountBookIdx, (newIdx) => {
+  if (newIdx) {
+    accountBookIdx.value = newIdx;
+    fetchUserProfiles();
+  }
 });
 </script>
 

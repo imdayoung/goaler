@@ -1,10 +1,24 @@
+<template>
+  <div :class="['sidebar', { show: props.isVisible }]">
+    <div class="mx-3 mt-3 mb-2 fw-bold">
+      내 통장
+    </div>
+    <router-link
+      class="btn btn-account-book"
+      v-for="accountBook in accountBooks"
+      :key="accountBook.id"
+      :to="`/account-books/${accountBook.id}`"
+    >
+      💰 {{ accountBook.title }}
+    </router-link>
+  </div>
+</template>
+
 <script setup>
 import { ref, onMounted } from 'vue';
-
 import { useMemberStore } from '@/stores/member';
 
 const accountBooks = ref([]);
-
 const memberStore = useMemberStore();
 
 const props = defineProps({
@@ -15,9 +29,8 @@ const props = defineProps({
 });
 
 // todo: 로그인된 사용자 인덱스 전달
-const fetchUserAccountBooks = async() => {
+const fetchUserAccountBooks = async () => {
   const data = await memberStore.getAccountBooks(1);
-
   accountBooks.value = data.map(item => ({
     id: item.idx,
     title: item.account_name + " - " + item.title
@@ -28,17 +41,6 @@ onMounted(() => {
   fetchUserAccountBooks();
 });
 </script>
-
-<template>
-  <div :class="['sidebar', { show: props.isVisible }]">
-    <div class="mx-3 mt-3 mb-2 fw-bold">
-      내 통장
-    </div>
-    <button class="btn btn-account-book" type="button" v-for="accountBook in accountBooks" :key="accountBook.id">
-      💰 {{ accountBook.title }}
-    </button>
-  </div>
-</template>
 
 <style scoped>
 .sidebar {
