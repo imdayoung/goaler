@@ -100,7 +100,6 @@ const createChart = (labels, counts) => {
 
 // 데이터 가져오기 함수
 const fetchData = async () => {
-  console.log('Fetching data for accountBookIdx:', accountBookIdx.value);  // 디버깅 로그 추가
   if (!accountBookIdx.value) return; // accountBookIdx가 없으면 함수 종료
 
   await categoryStore.getCategories();
@@ -128,12 +127,10 @@ const fetchData = async () => {
 
 // 컴포넌트가 마운트될 때와 URL의 accountBookIdx가 변경될 때 데이터 가져오기
 onMounted(() => {
-  console.log('Mounted ChartComponent with accountBookIdx:', accountBookIdx.value);  // 디버깅 로그 추가
   fetchData();
 });
 
 watch(() => route.params.accountBookIdx, (newIdx) => {
-  console.log('accountBookIdx changed to:', newIdx);  // 디버깅 로그 추가
   accountBookIdx.value = newIdx;
   fetchData();
 });
