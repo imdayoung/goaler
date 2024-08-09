@@ -13,18 +13,13 @@ watch(() => route.params.accountBookIdx, async (newIdx) => {
   if (newIdx) {
     accountBookIdx.value = newIdx;
     text.value = ""; // clear text before fetching new data
-    console.log("accountBookIdx:::", accountBookIdx.value);
 
-    try {
-      const response = await axios.get(`http://localhost:8080/api/v1/gpt/getAnalysis/${accountBookIdx.value}`);
-      console.log("accountBookIdx:", accountBookIdx.value);
-      
-      console.log("Response data:", response.data);
-
-      text.value = response.data;
-    } catch (error) {
-      console.error('Error fetching analysis:', error);
-    }
+    // try {
+    //   const response = await axios.get(`http://localhost:8080/api/v1/gpt/getAnalysis/${accountBookIdx.value}`);
+    //   text.value = response.data;
+    // } catch (error) {
+    //   console.error('Error fetching analysis:', error);
+    // }
   }
 }, { immediate: true });
 
@@ -39,22 +34,25 @@ const splittedText = computed(() => text.value.split(/[!?.]/));
 </script>
 
 <template>
-  <div class="card my-3 py-3">
-    <div class="analysis-title my-1">📢AI 금융 비서 비비가 알려드려요! </div>
-    <div class="analysis">
+  <div class="card">
+    <div class="analysis-title mt-4 mx-3">📢AI 금융 비서 비비가 알려드려요! </div>
       <div class="speech-bubble mx-5 my-3 px-3 py-3">
-        <div v-for="(text, index) in splittedText" :key="index" class="text-white">
+        <div class="text-white">
           {{ text }}
         </div>
       </div>
-      <div class="img-container px-3">
-        <img src="/src/assets/bibi3.png" class="mx-3"/>
+      <div class="img-container my-3">
+        <img src="/src/assets/bibi3.png"/>
       </div>
-    </div>
   </div>
-</template>
+  </template>
 
 <style scoped>
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .text-white {
   color: white;
 }
@@ -62,42 +60,39 @@ const splittedText = computed(() => text.value.split(/[!?.]/));
   font-family: 'jalnan';
   font-weight: bold;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
-.analysis {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
+
 .speech-bubble {
   position: relative;
-  background: #60584c;
-  border-radius: 1em;
-  width: 70%;
+  width: 80%;
+  height: 100%;
+  padding: 0px;
+  background: #60584C;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
 .speech-bubble:after {
   content: '';
   position: absolute;
-  right: 0;
-  top: 70%;
+  border-style: solid;
+  border-width: 20px 20px 0;
+  border-color: #60584C transparent;
+  display: block;
   width: 0;
-  height: 0;
-  border: 27px solid transparent;
-  border-left-color: #60584c;
-  border-right: 0;
-  border-bottom: 0;
-  margin-top: -13.5px;
-  margin-right: -27px;
+  z-index: 1;
+  bottom: -20px;
+  left: 45%;
 }
 .img-container {
   position: relative;
-  width: 30%;
+  width: 25%;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 }
 img {
-  max-width: 60%;
-  max-height: 60%;
+  width: 100%;
 }
 </style>
