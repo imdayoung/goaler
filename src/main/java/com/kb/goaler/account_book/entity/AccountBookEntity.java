@@ -26,4 +26,7 @@ public class AccountBookEntity {
     private String accountNumber;
 
     private Long balance;
+
+    @Column(name = "total_saving")
+    private Long totalSaving;
 }

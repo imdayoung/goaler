@@ -54,16 +54,16 @@ public class AccountBookService {
         String lineSeparator = System.lineSeparator();
 
         // Table header
-        table.append("+-------------------------+-------------------------+----------------+").append(lineSeparator);
-        table.append("|          title          |          goal           |    balance     |").append(lineSeparator);
-        table.append("+-------------------------+-------------------------+----------------+").append(lineSeparator);
+        table.append("+-------------------------+-------------------------+----------------+--------------------+").append(lineSeparator);
+        table.append("|          title          |          goal           |    balance     |     totalSaving    |").append(lineSeparator);
+        table.append("+-------------------------+-------------------------+----------------+--------------------+").append(lineSeparator);
 
         // Table row
-        table.append(String.format("| %-23s | %-23s | %-14d |",
-                response.getTitle(), response.getGoal(), response.getBalance())).append(lineSeparator);
+        table.append(String.format("| %-23s | %-23s | %-14d | %-14d |",
+                response.getTitle(), response.getGoal(), response.getBalance(), response.getTotalSaving())).append(lineSeparator);
 
         // Table footer
-        table.append("+-------------------------+-------------------------+----------------+").append(lineSeparator);
+        table.append("+-------------------------+-------------------------+----------------+--------------------+").append(lineSeparator);
 
         return table.toString();
     }
