@@ -11,4 +11,5 @@ public class AccountBookAIResponse {
     private String title;
     private String goal;
     private long balance;
+    private Long totalSaving;
 }
