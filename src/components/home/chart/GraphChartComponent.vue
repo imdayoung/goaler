@@ -120,6 +120,14 @@ const updateChart = async () => {
           },
         },
       },
+      plugins: {
+        legend: {
+          display: false,
+        },
+        datalabels: {
+          display: false,
+        }
+      }
     },
   });
 };

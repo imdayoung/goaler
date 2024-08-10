@@ -4,8 +4,17 @@
       <i class="fa-solid fa-chart-pie"></i>
       <h5>이번 달 지출 카테고리별 그래프</h5>
     </div>
-    <div class="chart-container">
-      <canvas id="categoryChart"></canvas>
+    <div class="chart-container-wrapper">
+      <div class="chart-container">
+        <canvas id="categoryChart"></canvas>
+      </div>
+      <div class="legend-container">
+        <ul>
+          <li v-for="(label, index) in chartLabels" :key="index">
+            <span :style="{ backgroundColor: chartColors[index] }"></span>{{ label }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -14,11 +23,12 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useCategoryStore } from '@/stores/category';
 import { useAccountHistory } from '@/stores/accounthistory';
 
 // Chart.js의 모든 요소를 등록
-Chart.register(...registerables);
+Chart.register(...registerables, ChartDataLabels);
 
 const route = useRoute();
 const accountBookIdx = ref(route.params.accountBookIdx);
@@ -29,6 +39,17 @@ const chart = ref(null);
 const categories = ref({});
 const selectedYear = ref(new Date().getFullYear());
 const selectedMonth = ref(new Date().getMonth() + 1);
+
+const chartLabels = ref([]);
+const chartColors = ref([
+  '#4994EC',
+  '#68AE5C',
+  '#F6C444',
+  '#9EC9F5',
+  '#FF9E61',
+  '#F49494',
+  '#9570F0',
+]);
 
 // 현재 월의 데이터를 필터링하는 함수
 const filterCurrentMonthData = (data) => {
@@ -53,20 +74,12 @@ const createChart = (labels, counts) => {
   }
   const ctx = document.getElementById('categoryChart').getContext('2d');
   chart.value = new Chart(ctx, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
       labels: labels.map(idx => categories.value[idx]),
       datasets: [{
         data: counts,
-        backgroundColor: [
-          '#FFBC00',
-          '#838687',
-          '#94C70F',
-          '#816843',
-          '#4A483F',
-          '#4E96D8',
-          '#F25D83',
-        ]
+        backgroundColor: chartColors.value
       }]
     },
     options: {
@@ -82,7 +95,7 @@ const createChart = (labels, counts) => {
       },
       plugins: {
         legend: {
-          display: false
+          display: false // 기본 legend를 숨김
         },
         tooltip: {
           callbacks: {
@@ -92,10 +105,24 @@ const createChart = (labels, counts) => {
               return ` ${value.toLocaleString()} 원`;
             }
           }
+        },
+        datalabels: {
+          formatter: (value, ctx) => {
+            const total = ctx.chart._metasets[0].total;
+            const percentage = ((value / total) * 100).toFixed(1);
+            return `${percentage}%`;
+          },
+          color: '#fff',
+          font: {
+            weight: 'bold'
+          }
         }
       }
     }
   });
+
+  // 라벨 업데이트
+  chartLabels.value = labels.map(idx => categories.value[idx]);
 };
 
 // 데이터 가져오기 함수
@@ -161,10 +188,43 @@ watch(() => route.params.accountBookIdx, (newIdx) => {
   font-size: 20px;
 }
 
+.chart-container-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
 .chart-container {
+  width: 70%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+}
+
+.legend-container {
+  width: 30%;
+  padding-left: 16px;
+}
+
+.legend-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legend-container li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.legend-container span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border-radius: 4px;
 }
 </style>
