@@ -76,14 +76,13 @@ public class GPTController {
     @GetMapping("/getAnalysis/{accountBookIdx}")
     public String getAnalysis(@PathVariable String accountBookIdx) {
 
-
         try {
             // 1. @GetMapping("/{accountBookIdx}/history/ai")에서 데이터 가져오기
             String historyUrl = "http://localhost:8080/api/v1/account-books/" + accountBookIdx + "/history/ai";
             String historyResponse = restTemplate.getForObject(historyUrl, String.class);
 
             // 2. GPT에게 보낼 프롬프트 생성
-            String prompt = " 이 멤버들의 가계부를 보고 소비경향을 분석해줘.누가 가장 많은 소비를 하는지,고정지출은 어떤 것이 있는지.멤버별 어떤 카테고리에 지출을 많이하는지를 포함해서 5문장의 줄글로 말해줘."
+            String prompt = "이 멤버들의 가계부를 보고 소비경향을 분석해줘.누가 가장 많은 소비를 하는지, 고정 수입과 지출은 어떤 것이 있는지 멤버별 어떤 카테고리에 지출을 많이하는지를 포함해서 5문장의 줄글로 말해줘."
                     + historyResponse;
 
 
