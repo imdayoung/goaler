@@ -43,6 +43,7 @@ public class AccountBookService {
                 .title(accountBookEntity.getTitle())
                 .goal(accountBookEntity.getGoal())
                 .balance(accountBookEntity.getBalance())
+                .totalSaving(accountBookEntity.getTotalSaving())
                 .build();
 
         return formatAccountBooksAsTable(response);
