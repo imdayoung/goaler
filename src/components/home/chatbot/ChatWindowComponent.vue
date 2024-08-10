@@ -25,7 +25,10 @@
 <script setup>
 import { ref, onUpdated } from 'vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
+const accountBookIdx = ref(route.params.accountBookIdx); // 현재 route에서 accountBookIdx를 가져옵니다.
 const message = ref('');
 const messages = ref([
   { from: 'bot', text: '안녕하세요! 당신의 AI 금융 비서 비비입니다 :) 무엇을 도와드릴까요?', time: getCurrentTime() }
@@ -45,7 +48,11 @@ async function sendMessage() {
     message.value = ''; // 입력 필드 비우기
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/gpt/chat', trimmedMessage);
+      // POST 요청 시 message와 accountBookIdx를 함께 전송
+      const response = await axios.post('http://localhost:8080/api/v1/gpt/chat', {
+        prompt: trimmedMessage,
+        accountBookIdx: accountBookIdx.value
+      });
       const botResponse = response.data;
       messages.value.push({ from: 'bot', text: botResponse, time: getCurrentTime() });
     } catch (error) {
