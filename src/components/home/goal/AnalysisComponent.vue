@@ -14,12 +14,12 @@ watch(() => route.params.accountBookIdx, async (newIdx) => {
     accountBookIdx.value = newIdx;
     text.value = ""; // clear text before fetching new data
 
-    // try {
-    //   const response = await axios.get(`http://localhost:8080/api/v1/gpt/getAnalysis/${accountBookIdx.value}`);
-    //   text.value = response.data;
-    // } catch (error) {
-    //   console.error('Error fetching analysis:', error);
-    // }
+    try {
+      const response = await axios.get(`http://localhost:8080/api/v1/gpt/getAnalysis/${accountBookIdx.value}`);
+      text.value = response.data;
+    } catch (error) {
+      console.error('Error fetching analysis:', error);
+    }
   }
 }, { immediate: true });
 
