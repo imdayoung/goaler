@@ -38,7 +38,7 @@ public class GPTController {
                     String dbData = restTemplate.getForObject(historyUrl, String.class);
 
                     // GPT API 요청 프롬프트를 구성합니다.
-                    gptPrompt = prompt + "이 테이블을 참고해. 테이블에서 title 이 '울 가족 여행'인 total_saving 컬럼이 우리가 한달동안 저금한 금액이야" + dbData + " 단 ,물어본거에만 간략하게 존댓말로 한문장으로 대답해.다른말 붙이지말고.";
+                    gptPrompt = prompt + "이 테이블을 참고해. 테이블에서 title 이 '울 가족 여행'인 total_saving 컬럼이 우리가 한달동안 저금한 금액이야" + dbData + " 단 , 물어본거에만 간략하게 한문장으로 대답해.다른말 붙이지말고. 그리고 밝고 활기찬 톤의 존댓말로 해";
                 } else {
                     gptPrompt = prompt;
                 }
@@ -49,7 +49,7 @@ public class GPTController {
                     String dbData = restTemplate.getForObject(historyUrl, String.class);
 
                     // GPT API 요청 프롬프트를능 구성합니다.
-                    gptPrompt = "내 이름은 김국민이고 엄마 이름은 김사랑, 아빠 이름은 김은행이야." + prompt + " 다음 테이블을 보고 말해줘. "+ dbData + " 단 ,물어본거에만 간략하게 존댓말로 한문장으로 대답해.다른말 붙이지말고.";
+                    gptPrompt = "내 이름은 김국민이고 엄마 이름은 김사랑, 아빠 이름은 김은행이야." + prompt + " 다음 테이블을 보고 말해줘. "+ dbData + " 단 , 물어본거에만 간략하게 한문장으로 대답해.다른말 붙이지말고. 그리고 밝고 활기찬 톤의 존댓말로 해";
                 } else {
                     //accountBookIdx null 일때,
                     gptPrompt = "accountBookIdx 가 null임." ;
@@ -82,8 +82,7 @@ public class GPTController {
             String historyResponse = restTemplate.getForObject(historyUrl, String.class);
 
             // 2. GPT에게 보낼 프롬프트 생성
-            String prompt = "이 멤버들의 가계부를 보고 소비경향을 분석해줘.누가 가장 많은 소비를 하는지, 고정 수입과 지출은 어떤 것이 있는지 멤버별 어떤 카테고리에 지출을 많이하는지를 포함해서 5문장의 줄글로 말해줘."
-                    + historyResponse;
+            String prompt = historyResponse + " 이 멤버들의 가계부를 보고 소비경향을 분석해줘. 밝고 활기찬 톤의 존댓말로 부탁해. 누가 가장 많은 소비를 하는지, 고정 수입과 지출은 어떤 것이 있는지, 멤버별 어떤 카테고리에 지출을 많이하는지, 가장 많이 소비한 카테고리를 줄이라는 충고를 포함해서 5문장의 줄글로 말해줘. " ;
 
 
             // 3. GPT API 호출
