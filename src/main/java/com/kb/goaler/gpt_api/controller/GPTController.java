@@ -49,10 +49,10 @@ public class GPTController {
                     String dbData = restTemplate.getForObject(historyUrl, String.class);
 
                     // GPT API 요청 프롬프트를능 구성합니다.
-                    gptPrompt = "내 이름은 김국민이고 엄마 이름은 김사랑, 아빠 이름은 김은행이야." + prompt + " 다음 테이블을 보고 말해줘. "+ dbData + " 단 ,물어본거에만 간략하게 존댓말로 한문장으로 대답해.다른말 붙이지말고.";
+                    gptPrompt = "내 이름은 김국민이고 엄마 이름은 김사랑, 아빠 이름은 김은행이야." + prompt + " 다음 테이블을 보고 말해줘. " + dbData + " 단 ,물어본거에만 간략하게 존댓말로 한문장으로 대답해.다른말 붙이지말고.";
                 } else {
                     //accountBookIdx null 일때,
-                    gptPrompt = "accountBookIdx 가 null임." ;
+                    gptPrompt = "accountBookIdx 가 null임.";
                 }
             }
 
@@ -88,7 +88,7 @@ public class GPTController {
 
 
             // 3. GPT API 호출
-            GPTRequest gptRequest = new GPTRequest(model, prompt, 0.1, 200, 0, 0, -1);
+            GPTRequest gptRequest = new GPTRequest(model, prompt, 0.1, 250, 0, 0, -1);
             GPTResponse gptResponse = restTemplate.postForObject(apiUrl, gptRequest, GPTResponse.class);
 
             // 4. GPT의 응답 반환
@@ -98,8 +98,6 @@ public class GPTController {
             return "An error occurred";  // 에러 메시지 반환
         }
     }
-
-
 
 
 }
