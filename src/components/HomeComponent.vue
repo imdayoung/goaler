@@ -5,7 +5,7 @@ import GoalComponent from '@/components/home/goal/GoalComponent.vue'
 import AnalysisComponent from '@/components/home/goal/AnalysisComponent.vue'
 import HistoryComponent from '@/components/home/history/HistoryComponent.vue'
 import AccountBookComponent from '@/components/home/history/AccountBookComponent.vue'
-import PieChartComponent from '@/components/home/chart/PieChartComponent.vue'
+import DoughnutChartComponent from '@/components/home/chart/DoughnutChartComponent.vue'
 import GraphChartComponent from '@/components/home/chart/GraphChartComponent.vue'
 </script>
 
@@ -23,7 +23,7 @@ import GraphChartComponent from '@/components/home/chart/GraphChartComponent.vue
         </div>
         <div class="other-components">
           <AnalysisComponent/>
-          <PieChartComponent/>
+          <DoughnutChartComponent/>
           <GraphChartComponent/>
         </div>
       </div>
