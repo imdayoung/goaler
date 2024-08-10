@@ -122,13 +122,10 @@ const updateChart = async () => {
       },
       plugins: {
         legend: {
-          display: false, // 라벨 비활성화
-        },
-        tooltip: {
-          enabled: false, // 툴팁 비활성화
+          display: false,
         },
         datalabels: {
-          display: false, // datalabels 플러그인을 사용 중이라면 비활성화
+          display: false,
         }
       }
     },
