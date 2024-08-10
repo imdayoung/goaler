@@ -50,9 +50,10 @@ public class GPTController {
 
                     // GPT API 요청 프롬프트를능 구성합니다.
                     gptPrompt = "내 이름은 김국민이고 엄마 이름은 김사랑, 아빠 이름은 김은행이야." + prompt + " 다음 테이블을 보고 말해줘. "+ dbData + " 단 , 물어본거에만 간략하게 한문장으로 대답해.다른말 붙이지말고. 그리고 밝고 활기찬 톤의 존댓말로 해";
+
                 } else {
                     //accountBookIdx null 일때,
-                    gptPrompt = "accountBookIdx 가 null임." ;
+                    gptPrompt = "accountBookIdx 가 null임.";
                 }
             }
 
@@ -96,8 +97,6 @@ public class GPTController {
             return "An error occurred";  // 에러 메시지 반환
         }
     }
-
-
 
 
 }
